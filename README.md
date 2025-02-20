@@ -7,3 +7,7 @@ That’s why I started *Gradient Dissent*—a blog where I walk through entry-le
 I’ve had the opportunity to teach programming at the HEC Montreal and develop advanced AI training programs. My goal? To make complex concepts accessible and help students, researchers, and professionals navigate this ever-evolving field. I thrive on bridging the gap between theory and practice, supporting learners of all levels in mastering machine learning.  
 
 So, whether you’re here out of curiosity, passion, or professional interest, welcome to *Gradient Dissent*! Expect deep dives, fresh insights, and the occasional rebellious take on AI. 🚀  
+
+👉 [Check out my blog](https://jonathanmoatti.github.io/)  
+👉 [Connect with me on LinkedIn](https://www.linkedin.com/in/jonathan-moatti/)  
+👉 [Send me an email](mailto: jonathan.moatti@hec.ca)
