@@ -1,6 +1,6 @@
 ---
 title: "Post With Code"
-author: "Harlow Malloc"
+author: "Jonathan Moatti"
 date: "2025-02-19"
 categories: [news, code, analysis]
 image: "image.jpg"
