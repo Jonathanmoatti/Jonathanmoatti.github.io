@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "gradient_dissent",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nFeb 19, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To Jo’s blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nFeb 16, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Quarto Basics\n\n\n\n\n\n\nnews\n\n\ncode\n\n\n\n\n\n\n\n\n\nFeb 20, 2025\n\n\nJo Mo\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nFeb 19, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To Jo’s blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nFeb 16, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -12,6 +12,20 @@
     "title": "Welcome To Jo’s blog",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/new_test_post/hello.html",
+    "href": "posts/new_test_post/hello.html",
+    "title": "Quarto Basics",
+    "section": "",
+    "text": "For a demonstration of a line plot on a polar axis, see Figure 1\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_moons\n\n# Create figure and axis objects with a single subplot\nplt.figure(figsize=(8, 6))\n\n# Generate the moon-shaped data\nX, y = make_moons(n_samples=200, noise=0.05, random_state=42)\n\n# Create scatter plots with improved styling\nplt.scatter(X[y==0, 0], X[y==0, 1], color='red', label='Class 0', alpha=0.6, edgecolor='darkred')\nplt.scatter(X[y==1, 0], X[y==1, 1], color='blue', label='Class 1', alpha=0.6, edgecolor='darkblue')\n\n# Add labels and title\nplt.xlabel('Feature 1')\nplt.ylabel('Feature 2')\nplt.title('Half-moon Classification Dataset')\n\n# Add legend with better positioning\nplt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')\n\n# Add grid for better readability\nplt.grid(True, linestyle='--', alpha=0.7)\n\n# Adjust layout to prevent label cutoff\nplt.tight_layout()\n\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1: Non-linear classification example using half-moon data"
+  },
+  {
+    "objectID": "posts/new_test_post/hello.html#half-moon-classification-example",
+    "href": "posts/new_test_post/hello.html#half-moon-classification-example",
+    "title": "Quarto Basics",
+    "section": "",
+    "text": "For a demonstration of a line plot on a polar axis, see Figure 1\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_moons\n\n# Create figure and axis objects with a single subplot\nplt.figure(figsize=(8, 6))\n\n# Generate the moon-shaped data\nX, y = make_moons(n_samples=200, noise=0.05, random_state=42)\n\n# Create scatter plots with improved styling\nplt.scatter(X[y==0, 0], X[y==0, 1], color='red', label='Class 0', alpha=0.6, edgecolor='darkred')\nplt.scatter(X[y==1, 0], X[y==1, 1], color='blue', label='Class 1', alpha=0.6, edgecolor='darkblue')\n\n# Add labels and title\nplt.xlabel('Feature 1')\nplt.ylabel('Feature 2')\nplt.title('Half-moon Classification Dataset')\n\n# Add legend with better positioning\nplt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')\n\n# Add grid for better readability\nplt.grid(True, linestyle='--', alpha=0.7)\n\n# Adjust layout to prevent label cutoff\nplt.tight_layout()\n\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1: Non-linear classification example using half-moon data"
   },
   {
     "objectID": "posts/post-with-code/index.html",
