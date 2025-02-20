@@ -1,5 +1,5 @@
 ---
-title: "Welcome To My Blog"
+title: "Welcome To mon cul"
 author: "Tristan O'Malley"
 date: "2025-02-16"
 categories: [news]
