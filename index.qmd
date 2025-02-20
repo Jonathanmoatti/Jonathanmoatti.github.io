@@ -1,5 +1,5 @@
 ---
-title: "gradient_dissent"
+title: "Gradient Dissent"
 listing:
   contents: posts
   sort: "date desc"

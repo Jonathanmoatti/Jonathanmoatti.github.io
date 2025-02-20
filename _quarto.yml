@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "gradient_dissent"
+  title: "Gradient Dissent"
   navbar:
     right:
       - about.qmd
