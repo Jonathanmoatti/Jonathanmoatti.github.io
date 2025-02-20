@@ -1,0 +1,9 @@
+.quarto-figure-center > figcaption {
+    text-align: center !important;
+    width: 100%;
+}
+
+.figure-caption {
+    text-align: center !important;
+    width: 100%;
+}

@@ -1,0 +1,48 @@
+---
+title: "Quarto Basics"
+format:
+  html:
+    code-fold: true
+    css: "styles.css"
+jupyter: python3
+---
+
+## Half-Moon Classification Example
+
+For a demonstration of a line plot on a polar axis, see @fig-classif
+
+```{python}
+#| label: fig-classif
+#| fig-cap: "Non-linear classification example using half-moon data"
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_moons
+
+# Create figure and axis objects with a single subplot
+plt.figure(figsize=(8, 6))
+
+# Generate the moon-shaped data
+X, y = make_moons(n_samples=200, noise=0.05, random_state=42)
+
+# Create scatter plots with improved styling
+plt.scatter(X[y==0, 0], X[y==0, 1], color='red', label='Class 0', alpha=0.6, edgecolor='darkred')
+plt.scatter(X[y==1, 0], X[y==1, 1], color='blue', label='Class 1', alpha=0.6, edgecolor='darkblue')
+
+# Add labels and title
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('Half-moon Classification Dataset')
+
+# Add legend with better positioning
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+
+# Add grid for better readability
+plt.grid(True, linestyle='--', alpha=0.7)
+
+# Adjust layout to prevent label cutoff
+plt.tight_layout()
+
+plt.show()
+```
