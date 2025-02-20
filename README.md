@@ -10,4 +10,4 @@ So, whether you’re here out of curiosity, passion, or professional interest, w
 
 👉 [Check out my blog](https://jonathanmoatti.github.io/)  
 👉 [Connect with me on LinkedIn](https://www.linkedin.com/in/jonathan-moatti/)  
-👉 [Send me an email](mailto: jonathan.moatti@hec.ca)
+👉 [Send me an email](mailto:jonathan.moatti@hec.ca)
