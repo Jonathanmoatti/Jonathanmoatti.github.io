@@ -13,5 +13,11 @@
   },
   "posts/new_test_post/hello.qmd": {
     "hello.html": "046c6fbb"
+  },
+  "posts/testing/testing.ipynb": {
+    "testing.html": "35314c0d"
+  },
+  "posts/testing/solutions.ipynb": {
+    "solutions.html": "8a84a3d6"
   }
 }

@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Solutions – Gradient Dissent</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-043afe7f799166049a41088ffaaff182.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Gradient Dissent</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/jonathan-moatti/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Solutions</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="question-1---échauffements" class="level1">
+<h1>Question 1 - Échauffements</h1>
+<section id="question-1.a" class="level2">
+<h2 class="anchored" data-anchor-id="question-1.a">Question 1.A</h2>
+<p>Écrire un programme qui demande un nombre à l’utilisateur, et l’informe ensuite si ce nombre est positif ou négatif. (Aux fins du présent exercice, le nombre zéro est considéré comme étant positif).</p>
+<div id="9cbc360a" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nb <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Un nombre ? "</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> nb<span class="op">&lt;</span><span class="dv">0</span> :</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Le nombre </span><span class="sc">{</span>nb<span class="sc">}</span><span class="ss"> est négatif"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> :</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Le nombre </span><span class="sc">{</span>nb<span class="sc">}</span><span class="ss"> est positif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Un nombre ? -1
+Le nombre -1 est négatif</code></pre>
+</div>
+</div>
+<div id="bbe2cd28" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nb <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Un nombre ? "</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> nb<span class="op">&lt;</span><span class="dv">0</span> :</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> <span class="st">"négatif"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> :</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> <span class="st">"positif"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Le nombre </span><span class="sc">{</span>nb<span class="sc">}</span><span class="ss"> est </span><span class="sc">{</span>msg<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># comparer les deux solutions en terme de performance et maintenance du code afin de les sensibiliser </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Un nombre ? 0
+Le nombre 0 est positif</code></pre>
+</div>
+</div>
+</section>
+<section id="question-1.b" class="level2">
+<h2 class="anchored" data-anchor-id="question-1.b">Question 1.B</h2>
+<p>Écrire un programme qui lit trois nombres entiers nb1, nb2 et nb3, et affiche selon le cas, l’un des trois messages ci-dessous : - Les nombres sont en ordre croissant - Les nombres sont en ordre décroissant - Les nombres sont en désordre</p>
+<p>aux fins du présent exércice, ne considérons pas l’éventualité où les valeurs de nb1, nb2 et nb3 puissent être égales les unes aux autres.</p>
+<div id="871ed916" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>nb1 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 1 ? "</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>nb2 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 2 ? "</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>nb3 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 3 ? "</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>chaine <span class="op">=</span> <span class="st">"Les nombres sont en "</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> nb1 <span class="op">&lt;</span> nb2:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nb2 <span class="op">&lt;</span> nb3:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        chaine <span class="op">+=</span> <span class="st">"ordre croissant"</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        chaine <span class="op">+=</span> <span class="st">"désordre"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nb2 <span class="op">&lt;</span> nb3 :</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        chaine <span class="op">+=</span> <span class="st">"désordre"</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        chaine <span class="op">+=</span> <span class="st">"ordre décroissant"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chaine)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nb 1 ? 10
+nb 2 ? 20
+nb 3 ? 30
+Les nombres sont en ordre croissant</code></pre>
+</div>
+</div>
+<div id="44e0b009" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nb1 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 1 ? "</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>nb2 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 2 ? "</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nb3 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 3 ? "</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>chaine <span class="op">=</span> <span class="st">"Les nombres sont en "</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> nb1 <span class="op">&lt;</span> nb2 <span class="kw">and</span> nb2 <span class="op">&lt;</span> nb3 :</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    chaine <span class="op">+=</span> <span class="st">"ordre croissant"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> nb1 <span class="op">&gt;</span> nb2 <span class="kw">and</span> nb2 <span class="op">&gt;</span> nb3 :</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    chaine <span class="op">+=</span> <span class="st">"ordre décroissant"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    chaine <span class="op">+=</span> <span class="st">"désordre"</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chaine)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># comparer les deux solutions en terme de performance et maintenance du code afin de les sensibiliser </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nb 1 ? 10
+nb 2 ? 20
+nb 3 ? 30
+Les nombres sont en ordre croissant</code></pre>
+</div>
+</div>
+</section>
+<section id="question-1.c" class="level2">
+<h2 class="anchored" data-anchor-id="question-1.c">Question 1.C</h2>
+<p>Écrire un programme qui permet de calculer le résultat de la division de deux nombre entiers nb1 et nb2. Attention lorsque l’utilisateur introduit la valeur 0 pour nb2, on affiche « infini ».</p>
+<div id="7377501a" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print(10/0)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>nb1 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 1 ? "</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>nb2 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"nb 2 ? "</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(nb2 <span class="op">==</span> <span class="dv">0</span>) :</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    resultat <span class="op">=</span> <span class="st">"infinity"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> :</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    resultat <span class="op">=</span> (nb1<span class="op">/</span>nb2)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>nb1<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>nb2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>resultat<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nb 1 ? 10
+nb 2 ? 0
+10 / 0 = infinity</code></pre>
+</div>
+</div>
+</section>
+<section id="question-1.d" class="level2">
+<h2 class="anchored" data-anchor-id="question-1.d">Question 1.D</h2>
+<p>Écrire le programme qui après lecture du montant TTC de l’addition, déterminera et affichera le montant du pourboire accordé à un serveur dans un restaurant. Le pourboire doit être de 15% sur le montant HT de l’addition. Le montant du pourboire ne peut être inférieur à 1$.</p>
+<p>Note : TPS = 5%, TVQ = 9.975%</p>
+<div id="bd5df5bd" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#constantes symboliques / éviter les constances littérales dans le code</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>TAUX_TPS       <span class="op">=</span> <span class="fl">.05</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>TAUX_TVQ       <span class="op">=</span> <span class="fl">.09975</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>TAUX_POURBOIRE <span class="op">=</span> <span class="fl">.15</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#variables</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>montantTotal   <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Le montant total de la facture ? "</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>montantAT      <span class="op">=</span> montantTotal <span class="op">/</span> (<span class="dv">1</span><span class="op">+</span>TAUX_TPS<span class="op">+</span>TAUX_TVQ)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print(montantAT)</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>pourboire      <span class="op">=</span> montantAT <span class="op">*</span> TAUX_POURBOIRE</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> pourboire <span class="op">&lt;</span> <span class="dv">1</span> :</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    pourboire <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span><span class="bu">round</span>(pourboire,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span>pourboire<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co">#expliquer la différence</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le montant total de la facture ? 115
+Montant du pourboire : 15.0
+Montant du pourboire : 15.00</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="question-2" class="level1">
+<h1>Question 2</h1>
+<p>Écrire le programme qui déterminera le total en dollars (arrondi) des clés USB commandées. Chaque clé USB coûte 15 dollars. Si on commande plus de 25 clés USB le prix est alors de 12.70 dollars chacune. On lit le nombre de clés USB, calculons et affichons le prix total.</p>
+<div id="15e17894" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>PRIX_DETAIL <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>PRIX_GROS   <span class="op">=</span> <span class="fl">12.70</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>QTE_GROS    <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>nbUSB <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Le nombre de clés USB ? "</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>prix <span class="op">=</span> PRIX_DETAIL</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> nbUSB <span class="op">&gt;</span> QTE_GROS :</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    prix <span class="op">=</span> PRIX_GROS</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">round</span>(nbUSB<span class="op">*</span>prix,<span class="dv">2</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>nbUSB<span class="sc">}</span><span class="ss"> x </span><span class="sc">{</span>prix<span class="sc">:.2f}</span><span class="ss">$ = </span><span class="sc">{</span>total<span class="sc">:.2f}</span><span class="ss">$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le nombre de clés USB ? 26
+26 x 12.70$ = 330.20$</code></pre>
+</div>
+</div>
+</section>
+<section id="question-3" class="level1">
+<h1>Question 3</h1>
+<p>Modifier le programme 1.D pour qu’en plus, on demande à l’utilisateur son degré de satisfaction, on calcule et affiche le pourboire selon le barème suivant :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Valeur saisie pour le degré de satisfaction</th>
+<th style="text-align: center;">degré de satisfaction correspondant</th>
+<th style="text-align: right;">Pourboire accordé</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: center;">médiocre</td>
+<td style="text-align: right;">10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">moyen</td>
+<td style="text-align: right;">15%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: center;">satisfaisant</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: center;">exceptionnel</td>
+<td style="text-align: right;">25%</td>
+</tr>
+</tbody>
+</table>
+<div id="c0b969f9" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 1 (difficilement généralisable)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>TAUX_TPS       <span class="op">=</span> <span class="fl">.05</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>TAUX_TVQ       <span class="op">=</span> <span class="fl">.09975</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>AUCUN        <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>MEDIOCRE     <span class="op">=</span> <span class="fl">.1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>MOYEN        <span class="op">=</span> <span class="fl">.15</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>SATISFAISANT <span class="op">=</span> <span class="fl">.2</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>EXCEPTIONNEL <span class="op">=</span> <span class="fl">.25</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>montantTotal   <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Le montant total de la facture ? "</span>))</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>montantAT      <span class="op">=</span> montantTotal <span class="op">/</span> (<span class="dv">1</span><span class="op">+</span>TAUX_TPS<span class="op">+</span>TAUX_TVQ)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>niveauSatisfaction <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Quel est votre degré de satisfaction :</span><span class="ch">\n\t</span><span class="st">entrez 0 pour médiocre</span><span class="ch">\n\t</span><span class="st">entrez 1 pour moyen</span><span class="ch">\n\t</span><span class="st">entrez 2 pour satisfaisant</span><span class="ch">\n\t</span><span class="st">entrez 3 pour exceptionnel</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> niveauSatisfaction <span class="op">==</span> <span class="st">"0"</span>:</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> MEDIOCRE</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> niveauSatisfaction <span class="op">==</span> <span class="st">"1"</span>:</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> MOYEN</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> niveauSatisfaction <span class="op">==</span> <span class="st">"2"</span>:</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> SATISFAISANT</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> niveauSatisfaction <span class="op">==</span> <span class="st">"3"</span>:</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> EXCEPTIONNEL</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> AUCUN</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>pourboire <span class="op">=</span> montantAT <span class="op">*</span> tauxPourboire</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span><span class="bu">round</span>(pourboire,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span>pourboire<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le montant total de la facture ? 115
+Quel est votre degré de satisfaction :
+    entrez 0 pour médiocre
+    entrez 1 pour moyen
+    entrez 2 pour satisfaisant
+    entrez 3 pour exceptionnel
+2
+Montant du pourboire : 20.0
+Montant du pourboire : 20.00</code></pre>
+</div>
+</div>
+<div id="92cd6a8a" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 2 (plus généraisable)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>TAUX_TPS       <span class="op">=</span> <span class="fl">.05</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>TAUX_TVQ       <span class="op">=</span> <span class="fl">.09975</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>TAUX_POURBOIRE <span class="op">=</span> [<span class="fl">.1</span>,<span class="fl">.15</span>,<span class="fl">.2</span>,<span class="fl">.25</span>,]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>montantTotal   <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Le montant total de la facture ? "</span>))</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>montantAT      <span class="op">=</span> montantTotal <span class="op">/</span> (<span class="dv">1</span><span class="op">+</span>TAUX_TPS<span class="op">+</span>TAUX_TVQ)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>tauxPourboire  <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>niveauSatisfaction <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Quel est votre degré de satisfaction :</span><span class="ch">\n\t</span><span class="st">entrez 0 pour médiocre</span><span class="ch">\n\t</span><span class="st">entrez 1 pour moyen</span><span class="ch">\n\t</span><span class="st">entrez 2 pour satisfaisant</span><span class="ch">\n\t</span><span class="st">entrez 3 pour exceptionnel</span><span class="ch">\n</span><span class="st">"</span>))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(niveauSatisfaction <span class="op">&lt;</span> <span class="bu">len</span>(TAUX_POURBOIRE)):</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> TAUX_POURBOIRE[niveauSatisfaction]</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>pourboire      <span class="op">=</span> montantAT <span class="op">*</span> tauxPourboire</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span><span class="bu">round</span>(pourboire,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span>pourboire<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le montant total de la facture ? 115
+Quel est votre degré de satisfaction :
+    entrez 0 pour médiocre
+    entrez 1 pour moyen
+    entrez 2 pour satisfaisant
+    entrez 3 pour exceptionnel
+0
+Montant du pourboire : 10.0
+Montant du pourboire : 10.00</code></pre>
+</div>
+</div>
+<div id="a175da1f" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solution 3 (encore meilleure)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>TAUX_TPS       <span class="op">=</span> <span class="fl">.05</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>TAUX_TVQ       <span class="op">=</span> <span class="fl">.09975</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>TAUX_POURBOIRE <span class="op">=</span> [</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"niveau"</span>:<span class="st">"médiocre"</span>    , <span class="st">"taux"</span>:<span class="fl">.1</span> },</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"niveau"</span>:<span class="st">"moyen"</span>       , <span class="st">"taux"</span>:<span class="fl">.15</span>},</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"niveau"</span>:<span class="st">"satisfaisant"</span>, <span class="st">"taux"</span>:<span class="fl">.2</span> },</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"niveau"</span>:<span class="st">"exceptionnel"</span>, <span class="st">"taux"</span>:<span class="fl">.25</span>},</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>montantTotal   <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Le montant total de la facture ? "</span>))</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>montantAT      <span class="op">=</span> montantTotal <span class="op">/</span> (<span class="dv">1</span><span class="op">+</span>TAUX_TPS<span class="op">+</span>TAUX_TVQ)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>tauxPourboire  <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>invite <span class="op">=</span> <span class="st">"Quel est votre degré de satisfaction :</span><span class="ch">\n\t</span><span class="st">"</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(TAUX_POURBOIRE)):</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    invite <span class="op">+=</span> <span class="ss">f"entrez </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> pour </span><span class="sc">{</span>TAUX_POURBOIRE[i][<span class="st">'niveau'</span>]<span class="sc">:12s}</span><span class="ss"> - (</span><span class="sc">{</span>TAUX_POURBOIRE[i][<span class="st">'taux'</span>]<span class="sc">:.2f}</span><span class="ss">%)</span><span class="ch">\n\t</span><span class="ss">"</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>niveauSatisfaction <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(invite))</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(niveauSatisfaction <span class="op">&lt;</span> <span class="bu">len</span>(TAUX_POURBOIRE)):</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    tauxPourboire <span class="op">=</span> TAUX_POURBOIRE[niveauSatisfaction][<span class="st">"taux"</span>]</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>pourboire      <span class="op">=</span> montantAT <span class="op">*</span> tauxPourboire</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span><span class="bu">round</span>(pourboire,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Montant du pourboire : </span><span class="sc">{</span>pourboire<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le montant total de la facture ? 115
+Quel est votre degré de satisfaction :
+    entrez 0 pour médiocre     - (0.10%)
+    entrez 1 pour moyen        - (0.15%)
+    entrez 2 pour satisfaisant - (0.20%)
+    entrez 3 pour exceptionnel - (0.25%)
+    3
+Montant du pourboire : 25.01
+Montant du pourboire : 25.01</code></pre>
+</div>
+</div>
+</section>
+<section id="question-4" class="level1">
+<h1>Question 4</h1>
+<p>Vous avez une liste de noms d’étudiants : <code>['bob', 'mary', 'jane', 'rick', 'peter', 'marge']</code>.</p>
+<p>Votre tâche consiste à demander à l’utilisateur de rentrer un nom, puis vérifier si ce nom est présent dans la liste d’étudiants.</p>
+<p>Si le nom est présent dans la liste, vous devez écrire le message suivant dans un fichier texte nommé <code>prenoms.txt</code> en utilisant la commande <code>with open</code> : &gt; “Le nom <code>&lt;nom_utilisateur&gt;</code> est présent dans la liste d’étudiants”</p>
+<p>Si le nom n’est pas présent dans la liste, vous devez écrire le message suivant dans <code>prenoms.txt</code>: &gt; “Le nom <code>&lt;nom_utilisateur&gt;</code> n’est pas présent dans la liste d’étudiants”</p>
+<p><strong>Indice</strong>: Il peut etre judicieux de mettre le nom de l’utilisateur en minuscule pour uniformiser la casse.</p>
+<div id="b7ab13b0" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des noms d'étudiants</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>etudiants <span class="op">=</span> [<span class="st">'bob'</span>, <span class="st">'mary'</span>, <span class="st">'jane'</span>, <span class="st">'rick'</span>, <span class="st">'peter'</span>, <span class="st">'marge'</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Demander à l'utilisateur de rentrer un nom</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>nom_utilisateur <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Entrez un nom : "</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir le nom en lettres minuscules</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>nom_utilisateur <span class="op">=</span> nom_utilisateur.lower()</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérifier si le nom est présent dans la liste d'étudiants</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> nom_utilisateur <span class="kw">in</span> etudiants:</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    message <span class="op">=</span> <span class="ss">f"Le nom </span><span class="sc">{</span>nom_utilisateur<span class="sc">}</span><span class="ss"> est présent dans la liste d'étudiants"</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    message <span class="op">=</span> <span class="ss">f"Le nom </span><span class="sc">{</span>nom_utilisateur<span class="sc">}</span><span class="ss"> n'est pas présent dans la liste d'étudiants"</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Écrire le message dans le fichier prenoms.txt</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"prenoms.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"UTF-8"</span>) <span class="im">as</span> fichier:</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    fichier.write(message)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Opération terminée. Vérifiez le fichier prenoms.txt."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Entrez un nom : mehdi
+Opération terminée. Vérifiez le fichier prenoms.txt.</code></pre>
+</div>
+</div>
+</section>
+<section id="question-5" class="level1">
+<h1>Question 5</h1>
+<p>Vous disposez des trois listes de données suivantes : - <code>first_names</code> contenant des prénoms, - <code>last_names</code> contenant des noms de famille, - <code>positions</code> contenant des positions.</p>
+<p>Votre tâche consiste à créer une boucle qui parcourt ces trois listes simultanement et affiche les informations de chaque joueur dans le format suivant:</p>
+<blockquote class="blockquote">
+<p>Description du Joueur :<br>
+Prénom : <code>&lt;prenom&gt;</code><br>
+Nom de Famille : <code>&lt;noms_de_famille&gt;</code><br>
+Position : <code>&lt;positions&gt;</code><br>
+<code>--------</code></p>
+</blockquote>
+<p>Voici le code de départ que vous pouvez utiliser pour résoudre cet exercice :</p>
+<div id="c28c7c37" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>prenoms <span class="op">=</span> [<span class="st">'Bill'</span>, <span class="st">'Jerry'</span>, <span class="st">'Wilt'</span>, <span class="st">'Bob'</span>, <span class="st">'Elgin'</span>, <span class="st">'Mehdi'</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>noms_de_famille <span class="op">=</span> [<span class="st">'Russell'</span>, <span class="st">'West'</span>, <span class="st">'Chamberlain'</span>, <span class="st">'Cousy'</span>, <span class="st">'Baylor'</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>positions <span class="op">=</span> [<span class="st">'Pivot'</span>, <span class="st">'Meneur'</span>, <span class="st">'Pivot'</span>, <span class="st">'Meneur'</span>, <span class="st">'Ailier'</span>]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérifie que les 3 listes ont le même nombre d'éléments</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(prenoms) <span class="op">==</span> <span class="bu">len</span>(noms_de_famille) <span class="op">==</span> <span class="bu">len</span>(positions)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Itere sur les listes et imprimme le message adequat.</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chiffre <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">min</span>(<span class="bu">len</span>(prenoms), <span class="bu">len</span>(noms_de_famille), <span class="bu">len</span>(positions))):</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Description du Joueur :</span><span class="ch">\n</span><span class="ss">Prénom : </span><span class="sc">{</span>prenoms[chiffre]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Nom de Famille : </span><span class="sc">{</span>noms_de_famille[chiffre]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Position : </span><span class="sc">{</span>positions[chiffre]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"--------"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Description du Joueur :
+Prénom : Bill
+Nom de Famille : Russell
+Position : Pivot
+--------
+Description du Joueur :
+Prénom : Jerry
+Nom de Famille : West
+Position : Meneur
+--------
+Description du Joueur :
+Prénom : Wilt
+Nom de Famille : Chamberlain
+Position : Pivot
+--------
+Description du Joueur :
+Prénom : Bob
+Nom de Famille : Cousy
+Position : Meneur
+--------
+Description du Joueur :
+Prénom : Elgin
+Nom de Famille : Baylor
+Position : Ailier
+--------</code></pre>
+</div>
+</div>
+</section>
+<section id="question-6" class="level1">
+<h1>Question 6:</h1>
+<p>Un fichier (<code>data.txt</code>) vous est fourni. Votre tâche consiste à ouvrir le fichier à l’aide de la fonction <code>with open</code> en mode <code>lecture</code> puis transformer les données qui s’y trouvent sous format <code>texte</code> (qui dit <code>texte</code> dit éléments de type <code>string</code>…) en une liste que vous nommerez <code>list_of_integers</code>.</p>
+<p><code>list_of_integers</code> ne doit contenir que des chiffres (éléments de type <code>int</code>).</p>
+<div id="7bd37b82" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Etape 1 : ouvrir le fichier</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'data.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Etape 2 : lire le fichier et creer un liste vide qui recevra les integers</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> f.readlines()</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    list_of_integers <span class="op">=</span> []</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Etape 3: iterer sur la liste, transformer la donne, l'ajouter a la liste propre.</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> string <span class="kw">in</span> data:</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        list_of_integers.append(<span class="bu">int</span>(string.strip()))</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>list_of_integers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</code></pre>
+</div>
+</div>
+</section>
+<section id="question-7" class="level1">
+<h1>Question 7:</h1>
+<p>Un texte (<code>string</code>) vous est fourni ci-dessous, portant sur des nouvelles financières. Votre tâche consiste à compter le nombre d’occurrences de chaque mot unique dans le texte et à stocker ces informations dans un dictionnaire. Les clés du dictionnaire doivent être les mots et les valeurs associées doivent être le nombre d’occurrences de chaque mots unique dans le texte.</p>
+<p><strong>Remarque</strong> : il faut enlever les symboles suivants du texte avant de compter les occurences: - les apostrophes <code>'</code>, - les virgules <code>,</code> - les points <code>.</code></p>
+<div id="a76e9210" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>texte <span class="op">=</span> <span class="st">"""Les marchés boursiers ont enregistré une forte hausse aujourd'hui,</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="st">        avec des gains dans le secteur de la technologie et de l'énergie. </span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="st">        Les investisseurs surveillent de près les rapports trimestriels des grandes entreprises. </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="st">        Les analystes prévoient des fluctuations des taux de change dans les prochaines semaines. </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">        La Banque Centrale a annoncé une réduction de son taux directeur pour stimuler l'économie."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ef4bb939" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compter les occurrences de chaque mot et stocker dans un dictionnaire</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>texte <span class="op">=</span> texte.replace(<span class="st">"'"</span>,<span class="st">" "</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>mots <span class="op">=</span> texte.split()</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>occurrences <span class="op">=</span> {}</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mot <span class="kw">in</span> mots:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    mot <span class="op">=</span> mot.strip(<span class="st">".,"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mot <span class="kw">in</span> occurrences:</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        occurrences[mot] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        occurrences[mot] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(occurrences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Les': 3, 'marchés': 1, 'boursiers': 1, 'ont': 1, 'enregistré': 1, 'une': 2, 'forte': 1, 'hausse': 1, 'aujourd': 1, 'hui': 1, 'avec': 1, 'des': 4, 'gains': 1, 'dans': 2, 'le': 1, 'secteur': 1, 'de': 5, 'la': 1, 'technologie': 1, 'et': 1, 'l': 2, 'énergie': 1, 'investisseurs': 1, 'surveillent': 1, 'près': 1, 'les': 2, 'rapports': 1, 'trimestriels': 1, 'grandes': 1, 'entreprises': 1, 'analystes': 1, 'prévoient': 1, 'fluctuations': 1, 'taux': 2, 'change': 1, 'prochaines': 1, 'semaines': 1, 'La': 1, 'Banque': 1, 'Centrale': 1, 'a': 1, 'annoncé': 1, 'réduction': 1, 'son': 1, 'directeur': 1, 'pour': 1, 'stimuler': 1, 'économie': 1}</code></pre>
+</div>
+</div>
+<div id="703d462e" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordonner les reponses (bonus question possible si le temps permet)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>occurrences_triees <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">sorted</span>(occurrences.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(occurrences_triees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'de': 5, 'des': 4, 'Les': 3, 'une': 2, 'dans': 2, 'l': 2, 'les': 2, 'taux': 2, 'marchés': 1, 'boursiers': 1, 'ont': 1, 'enregistré': 1, 'forte': 1, 'hausse': 1, 'aujourd': 1, 'hui': 1, 'avec': 1, 'gains': 1, 'le': 1, 'secteur': 1, 'la': 1, 'technologie': 1, 'et': 1, 'énergie': 1, 'investisseurs': 1, 'surveillent': 1, 'près': 1, 'rapports': 1, 'trimestriels': 1, 'grandes': 1, 'entreprises': 1, 'analystes': 1, 'prévoient': 1, 'fluctuations': 1, 'change': 1, 'prochaines': 1, 'semaines': 1, 'La': 1, 'Banque': 1, 'Centrale': 1, 'a': 1, 'annoncé': 1, 'réduction': 1, 'son': 1, 'directeur': 1, 'pour': 1, 'stimuler': 1, 'économie': 1}</code></pre>
+</div>
+</div>
+<section id="question-8" class="level2">
+<h2 class="anchored" data-anchor-id="question-8">Question 8:</h2>
+<p>Giovani est un étudiant astucieux en informatique de l’université de Montréal. Afin de sauver un peu de sous, il met à profit ses connaissances algorithmiques en pariant avec ses amis qu’il peut deviner n’importe quel nombre aléatoire, choisi par eux, dans une fourchette allant de 1 à 1 000 000, en utilisant un maximum de 20 essais seulement.</p>
+<p>Le secret de l’astuce de Giovani réside dans l’application d’un procédé ingénieux qui lui permet de réduire le nombre d’essais nécessaires pour deviner le nombre choisi par ses amis (la <code>cible</code>), parmi tous les nombres possible entre 1 et 1 000 000 (la <code>plage</code>)</p>
+<p>Les regles du pari sont les suivantes :</p>
+<ol type="1">
+<li>Les ami(e)s de Giovanni choisissent un chiffre aléatoire (<code>cible</code>) entre 1 et 1 000 000 (<code>plage</code>).</li>
+<li>Giovanni essaie de deviner la cible (il à 20 essais maximum) de la manière suivante :</li>
+</ol>
+<ul>
+<li>Si l’élément du milieu de la <code>plage</code> est égal à la <code>cible</code>, nous avons trouvé le chiffre.</li>
+<li>Si l’élément du milieu de la <code>plage</code> est plus petit que la <code>cible</code>, ses amis lui indique que la <code>cible</code> est plus grande que l’élément choisi et on élimine la moitié gauche de la liste pour se concentrer sur la moitié droite.</li>
+<li>Si l’élément du milieu de la <code>plage</code> est plus grand que la <code>cible</code>, ses amis lui indique que la <code>cible</code> est plus petite que l’élément choisi et on élimine la moitié droite de la liste pour se concentrer sur la moitié gauche.</li>
+</ul>
+<p>En divisant constamment la liste en deux et en comparant l’élément du milieu de la <code>plage</code> avec la <code>cible</code>, Giovanni réduit considérablement le nombre de comparaisons nécessaires pour trouver le numéro cible.</p>
+<p>Codons maintenant cette astuce en partant du code suivant:</p>
+<div id="356bdc90" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> split_inteligent(plage, cible):</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    left, right <span class="op">=</span> <span class="dv">0</span>, <span class="bu">len</span>(plage) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> left <span class="op">&lt;=</span> right:</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (left <span class="op">+</span> right) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> plage[mid] <span class="op">==</span> cible:</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> plage[mid], mid, count</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> plage[mid] <span class="op">&lt;</span> cible:</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, count  <span class="co"># Si element non trouvé</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="839507d8" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple d'utilisation</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>borne_supp <span class="op">=</span> <span class="dv">1_000_000</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>cible <span class="op">=</span> random.randint(<span class="dv">1</span>, borne_supp)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plage <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, borne_supp <span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Le chiffre a trouver est </span><span class="sc">{</span>cible<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>solution, index, count <span class="op">=</span> split_inteligent(plage, cible)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> index <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>cible<span class="sc">}</span><span class="ss"> trouvé à l'index </span><span class="sc">{</span>index<span class="sc">}</span><span class="ss"> : </span><span class="sc">{</span>solution <span class="op">==</span> cible<span class="sc">}</span><span class="ss">. Il a fallu </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> itérations pour trouver l'élément."</span>)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>cible<span class="sc">}</span><span class="ss"> n'a pas été trouvé dans la liste."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le chiffre a trouver est 82549
+82549 trouvé à l'index 82548 : True. Il a fallu 15 itérations pour trouver l'élément.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="bonus-a-faire-a-la-maison." class="level1">
+<h1>Bonus! (a faire a la maison).</h1>
+<section id="question-4-v2" class="level2">
+<h2 class="anchored" data-anchor-id="question-4-v2">Question 4 (v2)</h2>
+<p>Vous avez une liste de noms d’étudiants : <code>['Bob', 'Mary', 'Jane', 'Rick', 'Peter', 'Marge']</code>.</p>
+<p>Votre tâche consiste à utiliser une boucle while pour permettre à l’utilisateur d’essayer autant de fois qu’il le souhaite de rentrer un nom. Vous devez vérifier si le nom entré par l’utilisateur est présent dans la liste d’étudiants (<strong>Attention</strong> : <code>bob</code> et <code>Bob</code> sont considéré comme étant le même nom, <code>Mary</code> et <code>mary</code> aussi…).</p>
+<p>Si le nom est présent dans la liste, vous devez écrire le message suivant dans un fichier texte nommé <code>prenoms.txt</code> en utilisant la commande with open : &gt; “Le nom <code>&lt;nom_utilisateur&gt;</code> est présent dans la liste d’étudiants”</p>
+<p>Si le nom n’est pas présent dans la liste, vous devez écrire le message suivant dans <code>prenoms.txt</code>: &gt; “Le nom <code>&lt;nom_utilisateur&gt;</code> n’est pas présent dans la liste d’étudiants”</p>
+<p>Finalement, demandez à l’utilisateur s’il souhaite essayer un autre nom. Si oui, continuez la boucle, sinon quittez la boucle.</p>
+<p>Vous devez écrire sur le fichier <code>prenoms.txt</code> de tel sorte à garder l’historique des messages de toutes les tentatives.</p>
+<div id="ef791e83" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des noms d'étudiants</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>etudiants <span class="op">=</span> [<span class="st">'Bob'</span>, <span class="st">'Mary'</span>, <span class="st">'Jane'</span>, <span class="st">'Rick'</span>, <span class="st">'Peter'</span>, <span class="st">'Marge'</span>]</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>etudiants_lower <span class="op">=</span> [student.lower() <span class="cf">for</span> student <span class="kw">in</span> etudiants]</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Utiliser une boucle while pour permettre à l'utilisateur d'essayer plusieurs noms</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Demander à l'utilisateur de rentrer un nom</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    nom_utilisateur <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Entrez un nom : "</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convertir le nom en lettres minuscules</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    nom_utilisateur <span class="op">=</span> nom_utilisateur.lower()</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Vérifier si le nom est présent dans la liste d'étudiants</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nom_utilisateur <span class="kw">in</span> etudiants_lower:</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        message <span class="op">=</span> <span class="ss">f"Le nom </span><span class="sc">{</span>nom_utilisateur<span class="sc">}</span><span class="ss"> est présent dans la liste d'étudiants"</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>        message <span class="op">=</span> <span class="ss">f"Le nom </span><span class="sc">{</span>nom_utilisateur<span class="sc">}</span><span class="ss"> n'est pas présent dans la liste d'étudiants"</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Écrire le message dans le fichier prenoms.txt en mode ajout</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"prenoms.txt"</span>, <span class="st">"a"</span>) <span class="im">as</span> fichier:</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>        fichier.write(message <span class="op">+</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    continuer <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Voulez-vous essayer un autre nom ? (oui/non) "</span>)</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> continuer.lower() <span class="op">!=</span> <span class="st">"oui"</span>:</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Opération terminée. Vérifiez le fichier prenoms.txt."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
