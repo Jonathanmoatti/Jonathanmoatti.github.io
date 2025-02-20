@@ -8,6 +8,7 @@ I’ve had the opportunity to teach programming at the HEC Montreal and develop 
 
 So, whether you’re here out of curiosity, passion, or professional interest, welcome to *Gradient Dissent*! Expect deep dives, fresh insights, and the occasional rebellious take on AI. 🚀  
 
-👉 [Check out my blog](https://jonathanmoatti.github.io/)  
-👉 [Connect with me on LinkedIn](https://www.linkedin.com/in/jonathan-moatti/)  
-👉 [Send me an email](mailto:jonathan.moatti@hec.ca)
+🔗 **Follow along:**  
+- 📚 [Check out my blog](https://jonathanmoatti.github.io/)  
+- 💼 [Connect with me on LinkedIn](https://www.linkedin.com/in/jonathan-moatti/)  
+- 📫 [Send me an email](mailto:jonathan.moatti@hec.ca)
