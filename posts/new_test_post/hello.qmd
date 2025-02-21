@@ -6,7 +6,6 @@ categories: [news, code]
 format:
   html:
     code-fold: true
-    css: "styles.css"
 jupyter: python3
 ---
 

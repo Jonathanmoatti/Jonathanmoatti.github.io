@@ -1,8 +1,7 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/blog.html",
     "items": [
-      "/posts/testing/solutions.html",
       "/posts/new_test_post/hello.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"

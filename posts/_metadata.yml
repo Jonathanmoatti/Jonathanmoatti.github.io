@@ -1,8 +1,30 @@
-# options specified here will apply to all posts in this folder
-
-# freeze computational output
-# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+# Default metadata for all posts in this folder
 freeze: true
-
-# Enable banner style title blocks
 title-block-banner: true
+title-block-style: default
+
+# Define global formatting
+format:
+  html:
+    # Theme configuration
+    theme:
+      dark: [cosmo, brand]
+    
+    # Code display options
+    code-fold: false
+    code-tools: true
+    code-copy: true
+    
+    # Table of contents settings
+    toc: true
+    toc-location: right
+    
+    # Figure settings
+    fig-responsive: true
+    
+    # CSS path (relative to posts directory)
+    css: ../styles.css    
+    
+    # Default author settings
+    author:
+      name: Jonathan Moatti

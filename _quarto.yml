@@ -6,7 +6,8 @@ website:
   title: "Gradient Dissent"
   navbar:
     right:
-      - about.qmd
+      - text: "Blog"
+        href: blog.html
       - icon: github
         href: https://github.com/
       - icon: linkedin
@@ -14,9 +15,5 @@ website:
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      dark: [cosmo, brand]
     css: styles.css
-
-
-

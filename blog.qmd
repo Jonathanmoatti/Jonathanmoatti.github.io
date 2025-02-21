@@ -1,0 +1,16 @@
+---
+title: "The Blog"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+format:
+  html:
+    theme:
+      dark: [cosmo, brand]
+    css: styles.css
+---
