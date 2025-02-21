@@ -18,7 +18,7 @@
     "href": "posts/post-with-code/index.html",
     "title": "Post With Code",
     "section": "",
-    "text": "This is a post with executable code.\n\n\n\n\n\nCitationBibTeX citation:@online{moatti2025,\n  author = {Moatti, Jonathan},\n  title = {Post {With} {Code}},\n  date = {2025-02-19},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nMoatti, Jonathan. 2025. “Post With Code.” February 19,\n2025."
+    "text": "This is a post with executable code."
   },
   {
     "objectID": "posts/new_test_post/hello.html",
@@ -39,7 +39,7 @@
     "href": "posts/welcome/index.html",
     "title": "Welcome To Jo’s blog",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\n\n\n\n\n\nCitationBibTeX citation:@online{moatti2025,\n  author = {Moatti, Jonathan},\n  title = {Welcome {To} {Jo’s} Blog},\n  date = {2025-02-16},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nMoatti, Jonathan. 2025. “Welcome To Jo’s Blog.” February\n16, 2025."
+    "text": "This is the first post in a Quarto blog. Welcome!"
   },
   {
     "objectID": "index.html",
