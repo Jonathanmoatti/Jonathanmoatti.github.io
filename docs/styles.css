@@ -118,7 +118,7 @@ div.quarto-listing-default a,
 
 /* High-contrast syntax highlighting */
 /* High-contrast syntax highlighting */
-.sourceCode .kw { color: #98c379 !important; }    /* Keywords - Green (def, with) */
+.sourceCode .kw { color: #7ee787!important; }    /* Keywords - Green (def, with) */
 .sourceCode .dt { color: #79c0ff !important; }    /* Data types - Bright Blue */
 .sourceCode .st { color: #a5d6ff !important; }    /* Strings - Light Blue */
 .sourceCode .co { color: #8b949e !important; }    /* Comments - Grey */
@@ -126,9 +126,9 @@ div.quarto-listing-default a,
 .sourceCode .va { color: #ffa657 !important; }    /* Variables - Orange */
 .sourceCode .dv { color: #79c0ff !important; }    /* Numbers - Bright Blue */
 .sourceCode .op { color: #ff7b72 !important; }    /* Operators - Bright Red */
-.sourceCode .im { color: #7ee787 !important; }    /* Imports - Green */
+.sourceCode .im { color: #98c379  !important; }    /* Imports - Green */
 .sourceCode .at { color: #ffd700 !important; }    /* Decorators - Yellow (@tools) */
-.sourceCode .cf { color: #98c379 !important; }    /* Control flow (def) - Green */
+.sourceCode .cf { color: #7ee787 !important; }    /* Control flow (def) - Green */
 .sourceCode .nn { color: #ffd700 !important; }    /* Function definitions - Yellow */
 
 
