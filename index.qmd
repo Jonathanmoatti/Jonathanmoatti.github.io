@@ -10,7 +10,7 @@ about:
       href: https://www.linkedin.com/in/jonathan-moatti/
     - icon: github
       text: Github
-      href: https://github.com/Jonathanmoatti/Jonathanmoatti.github.io
+      href: https://github.com/Jonathanmoatti
 ---
 
 
