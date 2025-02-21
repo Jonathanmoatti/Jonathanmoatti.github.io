@@ -109,7 +109,7 @@ div.quarto-listing-default a,
 .quarto-categories a {
     color: #ffffff !important;
     background-color: #2d2d2d !important;
-    border-color: #4a4a4a !important;
+    border-color: #ffffff !important;
 }
 
 /* Enhanced Code Block Styling - High Contrast */
@@ -138,7 +138,7 @@ div.quarto-listing-default a,
 /* Code block container */
 div.sourceCode {
     background-color: #0d1117 !important;
-    border: 1px solid #30363d !important;
+    border: 1px solid #ffffff !important;
     border-radius: 6px !important;
     margin: 1em 0 !important;
 }
