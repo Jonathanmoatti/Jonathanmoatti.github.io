@@ -26,10 +26,7 @@ body {
     color: #ffffff;
 }
 
-.btn-primary {
-    background-color: #0d6efd;
-    color: white;
-}
+
 
 /* Blog listing and card styles */
 .listing-title, 
@@ -175,4 +172,13 @@ code {
     background-color: #0d1117 !important;
     padding: 2px 4px !important;
     border-radius: 3px !important;
+}
+
+.btn-custom {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+    border: none;
+    /* Optional: add padding, border-radius, etc. */
+    padding: 0.75em 1.5em;
+    border-radius: 4px;
 }
