@@ -1,5 +1,5 @@
 ---
-title: "Welcome to the Gradient Dissension"
+title: "Welcome to the Dissension"
 image: profile.jpg
 description-meta: "AI and Machine Learning Blog by Jonathan Moatti"
 about:
