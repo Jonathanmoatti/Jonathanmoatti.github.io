@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/local_agents_post/local_agent.html",
       "/posts/new_test_post/hello.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"

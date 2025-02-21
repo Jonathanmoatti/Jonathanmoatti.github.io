@@ -22,5 +22,8 @@
   },
   "blog.qmd": {
     "blog.html": "fce981f5"
+  },
+  "posts/local_agents_post/local_agent.ipynb": {
+    "local_agent.html": "ca7a680c"
   }
 }

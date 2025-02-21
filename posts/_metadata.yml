@@ -10,6 +10,7 @@ format:
     theme:
       - cosmo
       - brand
+    highlight-style: github-dark    # Add this line for code highlighting
     
     # Code display options
     code-fold: false

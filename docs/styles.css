@@ -78,8 +78,6 @@ a.listing-title,
     text-decoration: underline;
 }
 
-/* Add these specific selectors after your existing card styles */
-
 /* Blog listing specific styles */
 .quarto-listing-default .listing-title,
 .quarto-listing-default a.listing-title,
@@ -114,35 +112,42 @@ div.quarto-listing-default a,
     border-color: #4a4a4a !important;
 }
 
-/* Code styling in posts */
-pre code {
+/* Enhanced Code Block Styling - High Contrast */
+.sourceCode {
+    background-color: #0d1117 !important;    /* GitHub dark theme background */
     color: #ffffff !important;
+    padding: 1em !important;
 }
 
+/* High-contrast syntax highlighting */
+/* High-contrast syntax highlighting */
+.sourceCode .kw { color: #98c379 !important; }    /* Keywords - Green (def, with) */
+.sourceCode .dt { color: #79c0ff !important; }    /* Data types - Bright Blue */
+.sourceCode .st { color: #a5d6ff !important; }    /* Strings - Light Blue */
+.sourceCode .co { color: #8b949e !important; }    /* Comments - Grey */
+.sourceCode .fu { color: #ffd700 !important; }    /* Functions - Yellow */
+.sourceCode .va { color: #ffa657 !important; }    /* Variables - Orange */
+.sourceCode .dv { color: #79c0ff !important; }    /* Numbers - Bright Blue */
+.sourceCode .op { color: #ff7b72 !important; }    /* Operators - Bright Red */
+.sourceCode .im { color: #7ee787 !important; }    /* Imports - Green */
+.sourceCode .at { color: #ffd700 !important; }    /* Decorators - Yellow (@tools) */
+.sourceCode .cf { color: #98c379 !important; }    /* Control flow (def) - Green */
+.sourceCode .nn { color: #ffd700 !important; }    /* Function definitions - Yellow */
+
+
+/* Code block container */
+div.sourceCode {
+    background-color: #0d1117 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 6px !important;
+    margin: 1em 0 !important;
+}
+
+/* Code with filename */
 .code-with-filename {
     color: #ffffff !important;
+    background-color: #0d1117 !important;
 }
-
-.sourceCode {
-    color: #ffffff !important;
-    background-color: #2d2d2d !important;
-}
-
-/* Code block styling */
-div.sourceCode {
-    background-color: #2d2d2d !important;
-    border-color: #4a4a4a !important;
-}
-
-code.sourceCode {
-    color: #ffffff !important;
-}
-
-/* Code syntax highlighting */
-.token.comment { color: #6a9955 !important; }
-.token.string { color: #ce9178 !important; }
-.token.number { color: #b5cea8 !important; }
-.token.keyword { color: #569cd6 !important; }
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
@@ -164,11 +169,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff !important;
 }
 
-/* Code blocks */
-pre {
-    background-color: #2d2d2d !important;
-}
-
+/* Inline code */
 code {
-    color: #e83e8c !important;
+    color: #ff7b72 !important;
+    background-color: #0d1117 !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
 }

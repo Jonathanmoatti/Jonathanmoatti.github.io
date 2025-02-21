@@ -12,9 +12,11 @@ website:
         href: https://github.com/
       - icon: linkedin
         href: https://www.linkedin.com/in/jonathan-moatti/
+
 format:
   html:
     theme:
       - cosmo
       - brand
+    highlight-style: github-dark
     css: styles.css
