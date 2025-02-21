@@ -15,5 +15,6 @@ website:
 format:
   html:
     theme:
-      dark: [cosmo, brand]
+      - cosmo
+      - brand
     css: styles.css

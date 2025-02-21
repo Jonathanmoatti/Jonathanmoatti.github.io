@@ -8,7 +8,8 @@ format:
   html:
     # Theme configuration
     theme:
-      dark: [cosmo, brand]
+      - cosmo
+      - brand
     
     # Code display options
     code-fold: false
