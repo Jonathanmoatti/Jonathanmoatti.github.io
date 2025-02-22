@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Building Agents with Tools Locally</h1>
+      <div class="quarto-title-block"><div><h1 class="title">Building Agents with Tools Locally</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
                   <div>
         <div class="description">
           Building an AI Agent with tools locally using HuggingFace SmolAgents and Transformers Libraries
@@ -195,12 +195,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#using-nvidia-gpu-with-less-than-12gig-vram" id="toc-using-nvidia-gpu-with-less-than-12gig-vram" class="nav-link active" data-scroll-target="#using-nvidia-gpu-with-less-than-12gig-vram">Using Nvidia GPU with less than 12Gig VRAM</a>
+  <li><a href="#introduction-why-ai-agents-matter" id="toc-introduction-why-ai-agents-matter" class="nav-link active" data-scroll-target="#introduction-why-ai-agents-matter">Introduction: Why AI Agents Matter</a></li>
+  <li><a href="#building-open-source-agents-using-huggingfaces-smolagents" id="toc-building-open-source-agents-using-huggingfaces-smolagents" class="nav-link" data-scroll-target="#building-open-source-agents-using-huggingfaces-smolagents">Building Open Source Agents using HuggingFace’s SmolAgents</a>
   <ul class="collapse">
   <li><a href="#imports-setup" id="toc-imports-setup" class="nav-link" data-scroll-target="#imports-setup">Imports &amp; Setup</a></li>
-  <li><a href="#market-status-function" id="toc-market-status-function" class="nav-link" data-scroll-target="#market-status-function">Market Status Function</a></li>
-  <li><a href="#bypassing-the-llms-training-date-cutoff" id="toc-bypassing-the-llms-training-date-cutoff" class="nav-link" data-scroll-target="#bypassing-the-llms-training-date-cutoff">Bypassing the LLM’s training date cutoff</a></li>
-  <li><a href="#initializing-our-ai-agent." id="toc-initializing-our-ai-agent." class="nav-link" data-scroll-target="#initializing-our-ai-agent.">Initializing our AI agent.</a></li>
+  <li><a href="#define-your-prompt-template" id="toc-define-your-prompt-template" class="nav-link" data-scroll-target="#define-your-prompt-template">Define your prompt template</a></li>
+  <li><a href="#understanding-ai-tool-creation-with-smolagents" id="toc-understanding-ai-tool-creation-with-smolagents" class="nav-link" data-scroll-target="#understanding-ai-tool-creation-with-smolagents"><strong>Understanding AI Tool Creation with SmolAgents</strong></a></li>
+  <li><a href="#bypassing-llms-mathematical-computation-limitations" id="toc-bypassing-llms-mathematical-computation-limitations" class="nav-link" data-scroll-target="#bypassing-llms-mathematical-computation-limitations"><strong>Bypassing LLM’s mathematical computation limitations</strong></a></li>
+  <li><a href="#bypassing-the-llms-training-date-cutoff" id="toc-bypassing-the-llms-training-date-cutoff" class="nav-link" data-scroll-target="#bypassing-the-llms-training-date-cutoff"><strong>Bypassing the LLM’s training date cutoff</strong></a></li>
+  <li><a href="#understanding-the-final-answer-tool-in-ai-agents" id="toc-understanding-the-final-answer-tool-in-ai-agents" class="nav-link" data-scroll-target="#understanding-the-final-answer-tool-in-ai-agents">Understanding the Final Answer Tool in AI Agents</a></li>
+  <li><a href="#picking-our-llm-and-initializing-it." id="toc-picking-our-llm-and-initializing-it." class="nav-link" data-scroll-target="#picking-our-llm-and-initializing-it.">Picking our LLM and initializing it.</a></li>
+  <li><a href="#creating-an-ai-agent-with-custom-tools" id="toc-creating-an-ai-agent-with-custom-tools" class="nav-link" data-scroll-target="#creating-an-ai-agent-with-custom-tools">Creating an AI Agent with Custom Tools</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -212,20 +217,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="using-nvidia-gpu-with-less-than-12gig-vram" class="level2">
-<h2 class="anchored" data-anchor-id="using-nvidia-gpu-with-less-than-12gig-vram">Using Nvidia GPU with less than 12Gig VRAM</h2>
-<div id="cell-2" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To keep track of GPU usage in real time.</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># uncomment and run following command in terminal (ubuntu):</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># watch -n nvidia-smi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="main.webp" class="img-fluid figure-img"></p>
+<figcaption>Cyberpunk Agent</figcaption>
+</figure>
 </div>
+<section id="introduction-why-ai-agents-matter" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-why-ai-agents-matter">Introduction: Why AI Agents Matter</h3>
+<p><br> Before diving into the coding process, it’s essential to understand the purpose of the program we aim to build. We need to identify the problem at hand and the value we can derive from solving it…💩💩</p>
+<p>Lol, who am I kidding, we focus on picking problems that are <strong><em>fun</em></strong> to solve and let the marketting team worry about value creation 🐒🐒</p>
+<p>Jokes aside, today our goal is to learn how to overcome the traditional limitations of Large Language Models (LLMs) by building Agents that are able to use <em>custom tools</em>.</p>
+<p>While LLMs like GPT-4 are incredibly powerful and capable of performing various tasks such as answering questions, summarizing text, and reasoning about complex topics, they have <strong>significant limitations</strong> when used in isolation. What are those limitations, one may ask?</p>
+<ol type="1">
+<li><strong>Lack of Real-Time Data</strong>
+<ul>
+<li>LLMs are trained on static datasets and <em>cannot fetch live information</em> (e.g., stock prices, weather updates, or breaking news).<br>
+</li>
+<li>This leads to outdated or incomplete responses.<br>
+<br></li>
+</ul></li>
+<li><strong>Inability to Perform Actions</strong>
+<ul>
+<li>An LLM can tell you how to book a flight but <em>can’t actually book it</em>—it lacks the ability to interact with external systems.<br>
+</li>
+<li>Agents, on the other hand, can call APIs, interact with databases, and automate tasks.<br>
+<br></li>
+</ul></li>
+<li><strong>Limited Memory &amp; Context</strong>
+<ul>
+<li>While LLMs have a context window, they <em>forget past interactions beyond a limit</em> and struggle with long-term tasks.<br>
+</li>
+<li>Agents can store and retrieve relevant information, improving coherence over long workflows.<br>
+<br></li>
+</ul></li>
+<li><strong>Mathematical &amp; Computational Weaknesses</strong>
+<ul>
+<li>LLMs can make <strong>math mistakes</strong> or fail in complex computations.<br>
+</li>
+<li>Agents can call external computation tools (e.g., a Python script or a calculator API) for precise results.</li>
+</ul></li>
+</ol>
+<section id="how-agents-solve-these-problems" class="level4">
+<h4 class="anchored" data-anchor-id="how-agents-solve-these-problems"><strong>How Agents Solve These Problems</strong></h4>
+<p><em>AI agents</em> address many of the limitations of traditional language models by integrating external tools, allowing for greater accuracy, real-time data retrieval, and interaction with external systems. In this tutorial, we will explore how to create and integrate custom tools with LLMs to build more robust and functional AI agents.</p>
+<p>Specifically, we will develop:</p>
+<ul>
+<li>🧮 Mathematical computation tools capable of producing precise results, overcoming the tendency of LLMs to generate incorrect numerical answers (with a clear example of ChatGPT’s limitation that you can test against your Agent’s tool)</li>
+<li>📈 Real-time stock market query tools to retrieve up-to-date financial information.</li>
+<li>🔍 Web-search tools to access the latest research and trends, ensuring information is current.</li>
+</ul>
+<p>All implementations will rely entirely on open-source libraries (big love to Hugging Face ❤️) and will run locally on a standard machine with no more than 12GB of VRAM. While many existing tutorials focus on cloud-based implementations via <a href="https://huggingface.co/docs/api-inference/en/index">HuggingFace’s Serverless API</a>, I want to demonstrate how to get things running without relying on the cloud.</p>
+</section>
+</section>
+<section id="building-open-source-agents-using-huggingfaces-smolagents" class="level2">
+<h2 class="anchored" data-anchor-id="building-open-source-agents-using-huggingfaces-smolagents">Building Open Source Agents using HuggingFace’s SmolAgents</h2>
+<p>To monitor GPU utilization in real-time, especially when running resource-intensive machine learning tasks, you can leverage the <code>nvidia-smi</code> command. On Ubuntu, simply uncomment and execute the following command in your terminal (provided that you have an Nvidia GPU):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">watch</span> <span class="at">-n</span> 1 nvidia-smi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command offers a live, updating snapshot of your GPU’s performance, enabling you to monitor key metrics such as memory utilization and temperature. The <code>watch -n 1</code> component ensures that this information is refreshed every second. This is particularly useful for debugging, optimizing your machine learning workflows, and identifying specific commands or models that lead to critical “Out Of Memory” errors.</p>
 <section id="imports-setup" class="level3">
 <h3 class="anchored" data-anchor-id="imports-setup">Imports &amp; Setup</h3>
-<p>We start by importing all the necessary libraries and modules.</p>
-<p>In this cell, we bring in tools from the smolagents package, the Transformers library, and yfinance, along with utilities for managing dates and timezones.</p>
-<p>This setup establishes the environment we need to build our local agent that can execute code, perform web searches, and interact with financial data.</p>
-<div id="cell-4" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Any, Optional</span>
+<p>In this initial code block, we start by importing the necessary libraries to construct our local AI agent. Let’s break down each import:</p>
+<ul>
+<li><p><code>typing</code>: We import <code>Any</code> from the <code>typing</code> module to provide type hints for our function signatures, which is a critical part of creating useful tools that our agents that use.</p></li>
+<li><p><code>smolagents</code>: From the <code>smolagents</code> library, we import:</p>
+<ul>
+<li><code>Tool</code>: A base class for defining custom tools that our agent can use.</li>
+<li><code>CodeAgent</code>: The core class for creating agents capable of generating and executing code.</li>
+<li><code>TransformersModel</code>: A class to load and manage transformer models.</li>
+<li><code>tool</code>: A decorator to easily register functions as tools for the agent.</li>
+<li><code>DuckDuckGoSearchTool</code>: A pre-built tool that allows the agent to perform web searches using DuckDuckGo.</li>
+</ul></li>
+<li><p><code>transformers</code>: We import <code>AutoTokenizer</code> from the <code>transformers</code> library, which will be used to process text data for our models.</p></li>
+<li><p><code>yaml</code>: This library is imported to handle YAML configuration files, allowing us to define agent settings in a structured format.</p></li>
+<li><p><code>yfinance</code>: We import <code>yfinance</code> to fetch stock market data.</p></li>
+<li><p><code>datetime</code> and <code>pytz</code>: These are used for handling date and time information, which will be useful when working with financial data.</p></li>
+</ul>
+<p>These imports set the stage for building a powerful AI agent that can interact with its environment through code execution and web searches.</p>
+<p>You can see which dependencies are used for running this notebook by either simply hovering over <span style="text-decoration: underline dotted; cursor: help; color:rgb(255, 105, 230);" title="markdownify
+smolagents
+requests
+duckduckgo_search
+pandas
+yfinance">requirements.txt</span> or by visiting <a href="https://github.com/Jonathanmoatti/Jonathanmoatti.github.io/tree/main/posts/local_agents">this blog post’s GitHub page</a> and accessing the file.</p>
+<div id="cell-8" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Any</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> smolagents.tools <span class="im">import</span> Tool</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> smolagents <span class="im">import</span> CodeAgent, TransformersModel, tool, DuckDuckGoSearchTool</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
@@ -234,53 +312,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div id="cell-5" class="cell">
+</section>
+<section id="define-your-prompt-template" class="level3">
+<h3 class="anchored" data-anchor-id="define-your-prompt-template">Define your prompt template</h3>
+<p>Load up the adequate yaml prompt template. This one is compatible with the smolagents library and the model we will use. It was taken directly from <a href="https://huggingface.co/agents-course">HuggingFace’s Agents Course</a></p>
+<div id="cell-10" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the predefined prompts</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"prompts.yaml"</span>, <span class="st">'r'</span>) <span class="im">as</span> stream:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    prompt_templates <span class="op">=</span> yaml.safe_load(stream)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
-<section id="market-status-function" class="level3">
-<h3 class="anchored" data-anchor-id="market-status-function">Market Status Function</h3>
-<p>Here, we define a function that checks the current market status for a given ticker, and we decorate it as a tool.</p>
-<p>Using the <code>yfinance</code> library, the function retrieves stock information and then compares the current time in New York (<code>EST Time</code>) against standard trading hours.</p>
-<p>We also handle scenarios like weekends and any potential errors, ensuring that our agent can reliably tell whether the market is open or closed.</p>
-<div id="cell-7" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first tool</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_NA_market_status(ticker: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    A tool that checks if the stock market is open for the given ticker and returns the current price if open,</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    or the previous close price if the market is closed.</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">        ticker: The stock ticker symbol (e.g., 'AAPL', 'GOOG').</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">        A message indicating whether the market is open or closed, </span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">        and the price of the stock at the respective time.</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the current time in Eastern Time Zone</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    eastern <span class="op">=</span> pytz.timezone(<span class="st">'US/Eastern'</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> datetime.now(eastern)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    current_time <span class="op">=</span> now.time()</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    current_day <span class="op">=</span> now.weekday()  <span class="co"># Monday is 0 and Sunday is 6</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    market_open_time <span class="op">=</span> datetime.strptime(<span class="st">"09:30:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    market_close_time <span class="op">=</span> datetime.strptime(<span class="st">"16:00:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_day <span class="op">&lt;</span> <span class="dv">5</span> <span class="kw">and</span> market_open_time <span class="op">&lt;=</span> current_time <span class="op">&lt;=</span> market_close_time:</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Request intraday data: 1-day period with 1-minute interval</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        current_price <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>, interval<span class="op">=</span><span class="st">"1m"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Market is open. Current price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">: $</span><span class="sc">{</span>current_price<span class="sc">:.2f}</span><span class="ss">"</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        previous_close <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Market is closed. Previous close price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">: $</span><span class="sc">{</span>previous_close<span class="sc">:.2f}</span><span class="ss">"</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="understanding-ai-tool-creation-with-smolagents" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-ai-tool-creation-with-smolagents"><strong>Understanding AI Tool Creation with SmolAgents</strong></h3>
+<p>When building AI agents, <strong>defining tools properly is crucial</strong> for ensuring smooth integration with frameworks like <a href="https://huggingface.co/docs/smolagents/en/index">SmolAgents</a>.<br>
+The first tool we will build today uses the <code>yfinance</code> library to check the status (price) of a given ticker on the North American stock market.</p>
+<section id="creating-your-first-tool" class="level4">
+<h4 class="anchored" data-anchor-id="creating-your-first-tool"><strong>Creating your first tool</strong></h4>
+<p>The function <strong><code>check_NA_market_status</code></strong> is decorated with <code>@tool</code>, marking it as a callable tool within the agent framework. This tool checks whether the stock market is open and returns the latest stock price if open, or the last closing price if closed.</p>
+<ol type="1">
+<li><strong>Appropriate type-hinting is Essential</strong>
+<ul>
+<li>The function takes a <strong>single string argument (<code>ticker: str</code>)</strong> and returns a <strong>string (<code>-&gt; str</code>)</strong>.<br>
+</li>
+<li>This typing ensures that the agent understands the expected input and output format.<br>
+</li>
+<li>Without this, the function may not work correctly in an AI pipeline.</li>
+</ul></li>
+<li><strong>The Importance of a Docstring</strong>
+<ul>
+<li>The function is documented with a <strong>clear, structured docstring</strong> explaining:
+<ul>
+<li><strong>What it does</strong> (checks if the market is open and returns the appropriate stock price).<br>
+</li>
+<li><strong>What arguments it takes</strong> (<code>ticker</code> – the stock ticker symbol).<br>
+</li>
+<li><strong>What it returns</strong> (a formatted string with market status and price).<br>
+</li>
+</ul></li>
+<li>AI agents rely on this information to understand the function’s role. When/if you build your own tool, it is critical to keep the same docstring template for your code to be compatible with the smolagents library.</li>
+</ul></li>
+</ol>
+<section id="key-takeaways-for-developping-tools" class="level5">
+<h5 class="anchored" data-anchor-id="key-takeaways-for-developping-tools"><strong>Key Takeaways for developping tools</strong></h5>
+<ul>
+<li><strong>Follow the function template:</strong> Use clear type hints and structured docstrings.<br>
+</li>
+<li><strong>Ensure proper decoration:</strong> The <code>@tool</code> decorator registers the function within the SmolAgents framework.<br>
+</li>
+<li><strong>Keep return types simple:</strong> AI models parse these results, so returning formatted strings helps with interpretability.</li>
+</ul>
+<p>This structured approach makes it easier for Agents to <em>call tools correctly, understand their functions, and use them effectively in reasoning and decision-making.</em></p>
+<div id="cell-12" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> smolagents <span class="im">import</span> tool</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># first tool</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_NA_market_status(ticker: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    A tool that checks if the stock market is open for the given ticker and returns the current price if open,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    or the previous close price if the market is closed.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">        ticker: The stock ticker symbol (e.g., 'AAPL', 'GOOG').</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">        A message indicating whether the market is open or closed, </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">        and the price of the stock at the respective time.</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the current time in Eastern Time Zone</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    eastern <span class="op">=</span> pytz.timezone(<span class="st">'US/Eastern'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> datetime.now(eastern)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    current_time <span class="op">=</span> now.time()</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    current_day <span class="op">=</span> now.weekday()  <span class="co"># Monday is 0 and Sunday is 6</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    market_open_time <span class="op">=</span> datetime.strptime(<span class="st">"09:30:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    market_close_time <span class="op">=</span> datetime.strptime(<span class="st">"16:00:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_day <span class="op">&lt;</span> <span class="dv">5</span> <span class="kw">and</span> market_open_time <span class="op">&lt;=</span> current_time <span class="op">&lt;=</span> market_close_time:</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Request intraday data: 1-day period with 1-minute interval</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        current_price <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>, interval<span class="op">=</span><span class="st">"1m"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Market is open. Current price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">: $</span><span class="sc">{</span>current_price<span class="sc">:.2f}</span><span class="ss">"</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        previous_close <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Market is closed. Previous close price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">: $</span><span class="sc">{</span>previous_close<span class="sc">:.2f}</span><span class="ss">"</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5">
+</section>
+</section>
+</section>
+<section id="bypassing-llms-mathematical-computation-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="bypassing-llms-mathematical-computation-limitations"><strong>Bypassing LLM’s mathematical computation limitations</strong></h3>
+<p>The <code>fibonacci_tool</code> function is a custom tool designed to compute the nth Fibonacci number. It is decorated with <span class="citation" data-cites="tool">@tool</span>, which allows it to be seamlessly integrated into an AI agent using the SmolAgents framework.</p>
+<p>LLMs, while powerful, often struggle with mathematical computations, especially recursive sequences like Fibonacci numbers. Instead of relying on the LLM’s built-in reasoning (which often returns erroneous results even with the most powerful models like GPT-4o and o1 <em>try it for yourself</em>), this tool:</p>
+<ol type="1">
+<li>Provides a deterministic and accurate calculation of Fibonacci numbers.</li>
+<li>Is significantly more efficient than recursive implementations, using an iterative approach to avoid excessive function calls.</li>
+<li>Ensures the AI agent always returns correct numerical results rather than relying on approximate or hallucinated values. <br></li>
+</ol>
+<div id="cell-14" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># second tool</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci_tool(n: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
@@ -302,14 +441,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="bypassing-the-llms-training-date-cutoff" class="level3">
-<h3 class="anchored" data-anchor-id="bypassing-the-llms-training-date-cutoff">Bypassing the LLM’s training date cutoff</h3>
-<p>In the following snippet, we create a tool that leverages <code>DuckDuckGoSearch</code> to fetch up-to-date information from the web.</p>
-<p>We designed this function to perform a search based on a user’s query and return the results or an error message if something goes wrong.</p>
+<h3 class="anchored" data-anchor-id="bypassing-the-llms-training-date-cutoff"><strong>Bypassing the LLM’s training date cutoff</strong></h3>
+<p>Finally, we create a tool that leverages <code>DuckDuckGoSearch</code> to fetch up-to-date information from the web.</p>
 <p>This tool empowers our agent with the ability to quickly retrieve relevant information on demand. Since models training have cutoff dates, this tool will allow us to bypass this cutoff limitation by researching the web for up to date answers to any query we may have.</p>
-<div id="cell-10" class="cell" data-execution_count="6">
+<div id="cell-16" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># third tool</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duckduckgo_search(query: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
@@ -334,8 +475,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        [<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">.</span>get(<span class="st">'title'</span>, <span class="st">'No Title'</span>)<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>item<span class="sc">.</span>get(<span class="st">'url'</span>, <span class="st">'No URL'</span>)<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> item <span class="kw">in</span> results]</span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> formatted_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div id="cell-11" class="cell" data-execution_count="7">
+</section>
+<section id="understanding-the-final-answer-tool-in-ai-agents" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-final-answer-tool-in-ai-agents">Understanding the Final Answer Tool in AI Agents</h3>
+<p>The <code>FinalAnswerTool</code> is a specialized tool used in AI agent frameworks to consolidate the reasoning process and provide a definitive response. Unlike other tools that fetch data or perform computations, this tool acts as a final step where the AI commits to a structured output.</p>
+<section id="why-this-tool-is-important-for-ai-agents" class="level4">
+<h4 class="anchored" data-anchor-id="why-this-tool-is-important-for-ai-agents">Why This Tool Is Important for AI Agents</h4>
+<p>AI agents often go through multi-step reasoning before arriving at an answer. The <code>FinalAnswerTool</code> helps in:</p>
+<ol type="1">
+<li><p>Ensuring a structured final response</p>
+<ul>
+<li>Instead of returning intermediate steps, the agent commits to a well-defined answer.</li>
+</ul></li>
+<li><p>Improving interpretability</p>
+<ul>
+<li>By using a dedicated final output tool, responses become more consistent and easier to process.</li>
+</ul></li>
+<li><p>Integrating seamlessly into pipelines</p>
+<ul>
+<li>Many agent frameworks expect a clear final output format—this tool standardizes the output handling.</li>
+</ul></li>
+</ol>
+<p>When designing AI agents, tools like this help bridge the gap between reasoning and action, making interactions smoother and more reliable.</p>
+<div id="cell-18" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># final answer class tool used after reasoning</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FinalAnswerTool(Tool):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">"final_answer"</span></span>
@@ -351,21 +517,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># instanciate tool</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>final_answer <span class="op">=</span> FinalAnswerTool()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
-<section id="initializing-our-ai-agent." class="level3">
-<h3 class="anchored" data-anchor-id="initializing-our-ai-agent.">Initializing our AI agent.</h3>
-<p>To instanciate our agent, we must first create a model instance by setting up a specific Transformers model and its tokenizer (with CUDA enabled and controlled token limits).</p>
-<div id="cell-13" class="cell">
+</section>
+<section id="picking-our-llm-and-initializing-it." class="level3">
+<h3 class="anchored" data-anchor-id="picking-our-llm-and-initializing-it.">Picking our LLM and initializing it.</h3>
+<p>To instanciate our agent, we must first create a model instance by setting up a specific <code>TransformersModel</code> and its tokenizer (with CUDA enabled and controlled token limits).</p>
+<div id="cell-20" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pick a model and instanciate it</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model_name= "HuggingFaceTB/SmolLM2-360M-Instruct"</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>model_name<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-1.7B-Instruct"</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model_name = "HuggingFaceTB/SmolLM-135M-Instruct"</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> TransformersModel(model_id<span class="op">=</span>model_name, device_map<span class="op">=</span><span class="st">"auto"</span>, max_new_tokens<span class="op">=</span><span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<p>Then, we instantiate our <code>CodeAgent</code>, integrating the market status, fibonacci and web search tools we defined earlier.</p>
-<p>We also provide a system message to guide the agent’s behavior, so it knows how to use these tools to effectively help users with their queries</p>
-<div id="cell-15" class="cell" data-execution_count="8">
+</section>
+<section id="creating-an-ai-agent-with-custom-tools" class="level3">
+<h3 class="anchored" data-anchor-id="creating-an-ai-agent-with-custom-tools">Creating an AI Agent with Custom Tools</h3>
+<p>Now that we’ve built our individual tools, the next step is assembling them into an AI agent. This is done using the <code>CodeAgent</code> class, which takes a language model (model), a set of tools, and other parameters to define its behavior.</p>
+<p><strong>Key Components of the AI Agent:</strong></p>
+<ol type="1">
+<li><code>Model</code> (model) – The LLM that powers the agent’s reasoning and decision-making.</li>
+<li><code>Tools</code> (tools) – A list of functions the agent can use to extend its capabilities.</li>
+<li><code>Max Steps</code> (max_steps=6) – Limits how many steps the agent can take before finalizing an answer.</li>
+<li><code>Verbosity</code> (verbosity_level=1) – Controls the level of detail in logs/debugging output.</li>
+<li><code>Prompt Templates</code> (prompt_templates) – Provides structured instructions for the agent’s behavior.</li>
+</ol>
+<div id="cell-22" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finaly, create the agent and pass the model, tools, number of steps it should reflect for, prompt template...ect</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> CodeAgent(</span>
@@ -379,10 +562,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    prompt_templates<span class="op">=</span>prompt_templates</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Finally, we query our <code>agent</code> by passing in our queries to the <code>.run()</code> method.</p>
-<div id="cell-17" class="cell" data-execution_count="10">
+<div id="cell-24" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you give me the 118th number in the Fibonacci sequence?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702">╭──────────────────────────────────────────────────── </span><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">New run</span><span style="color: #d4b702; text-decoration-color: #d4b702"> ────────────────────────────────────────────────────╮</span>
 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>                                                                                                                 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>
@@ -414,8 +601,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>CodeAgent: 2046711111473984623691759</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="11">
+<div id="cell-25" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you give me the current market price of the stock VEQT.TO?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702">╭──────────────────────────────────────────────────── </span><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">New run</span><span style="color: #d4b702; text-decoration-color: #d4b702"> ────────────────────────────────────────────────────╮</span>
 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>                                                                                                                 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>
@@ -448,8 +638,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>CodeAgent: Market is open. Current price of VEQT.TO: $46.64</code></pre>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="9">
+<div id="cell-26" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you search the web for the latest AI research in 2025"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702">╭──────────────────────────────────────────────────── </span><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">New run</span><span style="color: #d4b702; text-decoration-color: #d4b702"> ────────────────────────────────────────────────────╮</span>
 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>                                                                                                                 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>
