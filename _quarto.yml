@@ -4,6 +4,7 @@ project:
 
 website:
   title: "The Gradient Dissident"
+  google-analytics: "G-RFWE7V09ES"
   navbar:
     right:
       - text: "Blog"
@@ -12,7 +13,7 @@ website:
         href: https://github.com/Jonathanmoatti
       - icon: linkedin
         href: https://www.linkedin.com/in/jonathan-moatti/
-
+  
 format:
   html:
     theme:
@@ -20,4 +21,5 @@ format:
       - brand
     highlight-style: github-dark
     css: styles.css
+
 
