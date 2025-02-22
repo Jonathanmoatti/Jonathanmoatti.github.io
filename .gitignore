@@ -1,26 +1,4 @@
-/.quarto/
 note_to_self.qmd
-/posts/new_test_post/
-/posts/post-with-code/
-/posts/welcome/
-/docs/posts/new_test_post/
-/docs/posts/post-with-code/
-/docs/posts/welcome/
-
-docs/*
-!docs/local_agents/
-
-# Ignore all posts except local_agents
-posts/*
-!posts/local_agents/
-
-# Ignore rendered docs except local_agents
-docs/*
-!docs/local_agents/
-
-# Ignore freeze folder except for local_agents
-_freeze/*
-!_freeze/posts/local_agents/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints
