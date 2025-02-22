@@ -6,3 +6,6 @@ note_to_self.qmd
 /docs/posts/new_test_post/
 /docs/posts/post-with-code/
 /docs/posts/welcome/
+
+docs/*
+!docs/local_agents/
