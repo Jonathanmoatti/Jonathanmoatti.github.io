@@ -9,3 +9,19 @@ note_to_self.qmd
 
 docs/*
 !docs/local_agents/
+
+# Ignore all posts except local_agents
+posts/*
+!posts/local_agents/
+
+# Ignore rendered docs except local_agents
+docs/*
+!docs/local_agents/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Python cache
+__pycache__/
+*.py[cod]
