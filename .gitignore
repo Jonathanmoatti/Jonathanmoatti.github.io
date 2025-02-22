@@ -18,6 +18,10 @@ posts/*
 docs/*
 !docs/local_agents/
 
+# Ignore freeze folder except for local_agents
+_freeze/*
+!_freeze/posts/local_agents/
+
 # Jupyter notebook checkpoints
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
