@@ -182,3 +182,27 @@ code {
     padding: 0.75em 1.5em;
     border-radius: 4px;
 }
+
+
+/* Add this new CSS class for blog listing images */
+.quarto-listing-default .listing-image {
+    display: block !important;
+    margin: -3.5rem auto 1rem auto !important;  /* Increased negative top margin from -2.5rem to -3.5rem */
+    max-width: 400px !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    object-fit: cover !important;
+}
+
+
+/* Also target the containing div if needed */
+.quarto-listing-default .listing-image-container {
+    margin-top: -2rem !important;
+}
+
+/* Add spacing for the title */
+.quarto-listing-default .listing-title {
+    margin-top: 1rem !important;  /* Added positive margin to push title down */
+    padding-top: 0.5rem !important;
+}
