@@ -206,3 +206,30 @@ code {
     margin-top: 1rem !important;  /* Added positive margin to push title down */
     padding-top: 0.5rem !important;
 }
+
+
+
+/* Wider code cells and outputs */
+.cell-output {
+    max-width: 100% !important;
+}
+
+.cell {
+    max-width: 100% !important;
+}
+
+/* Make sure code outputs don't overflow */
+.cell-output pre {
+    white-space: pre-wrap !important;
+}
+
+/* Optional: adjust page width for better readability */
+.page-columns {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Increase width of notebook content */
+.quarto-notebook-cell {
+    max-width: 100% !important;
+}
