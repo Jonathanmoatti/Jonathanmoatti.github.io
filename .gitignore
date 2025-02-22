@@ -7,3 +7,5 @@ note_to_self.qmd
 # Python cache
 __pycache__/
 *.py[cod]
+
+/.quarto/
