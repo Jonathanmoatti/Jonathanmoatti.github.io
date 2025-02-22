@@ -21,7 +21,3 @@ format:
     highlight-style: github-dark
     css: styles.css
 
-listing:
-  contents: "posts/local_agents"
-  sort: "date desc"
-  type: default
