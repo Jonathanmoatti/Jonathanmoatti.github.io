@@ -4,7 +4,7 @@
     "href": "note_to_self.html",
     "title": "The Gradient Dissident",
     "section": "",
-    "text": "command line to resize images : &gt; convert &lt;image_path/image_name.png -resize 1000x1000 new_image_name.png\nexample:\n- convert agents.webp -resize 500x500 thumbnail.webp\n- convert agents.webp -resize 1000x1000 main.webp\n\nClicker sur un lien de fichier present dans le meme dossier post/ (ici un exemple avec requirements.txt de posts/local_agents/) - requirements.txt\nFaire un hover text (et ajouter de la couleur) #| echo: false #| output: asis with open(‘requirements.txt’) as f: requirements = f.read().strip()\nprint(f’You can see which dependencies are used for running this notebook by simply hovering over the following : requirements.txt’)\n\nAjouter de la couleur dans un mots: requirement.txt"
+    "text": "command line to resize images : &gt; convert &lt;image_path/image_name.png -resize 1000x1000 new_image_name.png\nexample:\n- convert agents.webp -resize 500x500 thumbnail.webp\n- convert agents.webp -resize 1000x1000 main.webp\n\nClicker sur un lien de fichier present dans le meme dossier post/ (ici un exemple avec requirements.txt de posts/local_agents/) - requirements.txt\nFaire un hover text (et ajouter de la couleur) #| echo: false #| output: asis with open(‘requirements.txt’) as f: requirements = f.read().strip()\nprint(f’You can see which dependencies are used for running this notebook by simply hovering over the following : requirements.txt’)\n\n\n\nAjouter de la couleur dans un mots: requirement.txt\n\n\n\n\nAjouter une image cliquable avec hover text (en couleur) \n\n\n\nAjouter une image en resize dans un post: \n\nAjouter une video:   Your browser does not support the video tag."
   },
   {
     "objectID": "index.html",

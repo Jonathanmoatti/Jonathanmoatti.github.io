@@ -22,3 +22,17 @@ print(f'You can see which dependencies are used for running this notebook by sim
 Ajouter de la couleur dans un mots:
 <span style="color:rgb(255, 105, 230);">requirement.txt</span>
 
+-----
+Ajouter une image cliquable avec hover text (en couleur)
+<span style="color:rgb(255, 105, 230);" title="hover_text">[![title](agents.webp)](agents.webp)</span>
+
+---- 
+Ajouter une image en resize dans un post:
+![image](agents.webp =100x100)
+
+---
+Ajouter une video:
+<video width="320" height="240" controls>
+  <source src="https://www.youtube.com/watch?v=4UgZJf8f1rM" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
