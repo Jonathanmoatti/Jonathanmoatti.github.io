@@ -418,7 +418,7 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 <section id="bypassing-llms-mathematical-computation-limitations" class="level3">
 <h3 class="anchored" data-anchor-id="bypassing-llms-mathematical-computation-limitations"><strong>Bypassing LLM’s mathematical computation limitations</strong></h3>
 <p>The <code>fibonacci_tool</code> function is a custom tool designed to compute the nth Fibonacci number. It is decorated with <span class="citation" data-cites="tool">@tool</span>, which allows it to be seamlessly integrated into an AI agent using the SmolAgents framework.</p>
-<p>LLMs, while powerful, often struggle with mathematical computations, especially recursive sequences like Fibonacci numbers. Instead of relying on the LLM’s built-in reasoning (which often returns erroneous results even with the most powerful models like GPT-4o and o1 <em>try it for yourself</em>), this tool:</p>
+<p>LLMs, while powerful, often struggle with mathematical computations, especially recursive sequences like Fibonacci numbers. Instead of relying on the LLM’s built-in reasoning (which often returns erroneous results even with the most powerful models like GPT-4o and o1 <u><em>try it for yourself</em></u>), this tool:</p>
 <ol type="1">
 <li>Provides a deterministic and accurate calculation of Fibonacci numbers.</li>
 <li>Is significantly more efficient than recursive implementations, using an iterative approach to avoid excessive function calls.</li>
