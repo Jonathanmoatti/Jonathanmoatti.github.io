@@ -286,9 +286,9 @@ gtag('config', 'G-RFWE7V09ES', { 'anonymize_ip': true});
 <p>This command offers a live, updating snapshot of your GPU’s performance, enabling you to monitor key metrics such as memory utilization and temperature. The <code>watch -n 1</code> component ensures that this information is refreshed every second. This is particularly useful for debugging, optimizing your machine learning workflows, and identifying specific commands or models that lead to critical “Out Of Memory” errors.</p>
 <section id="imports-setup" class="level3">
 <h3 class="anchored" data-anchor-id="imports-setup">Imports &amp; Setup</h3>
-<p>In this initial code block, we start by importing the necessary libraries to construct our local AI agent. Let’s break down each import:</p>
+<p>In this initial code block, we start by importing the necessary libraries to construct our local AI agent. Let’s break down the important imports:</p>
 <ul>
-<li><p><code>typing</code>: We import <code>Any</code> from the <code>typing</code> module to provide type hints for our function signatures, which is a critical part of creating useful tools that our agents that use.</p></li>
+<li><p><code>typing</code>: A module to provide type hints for our function signatures, which is a critical part of creating useful tools that our agents that use.</p></li>
 <li><p><code>smolagents</code>: From the <code>smolagents</code> library, we import:</p>
 <ul>
 <li><code>Tool</code>: A base class for defining custom tools that our agent can use.</li>
@@ -297,18 +297,16 @@ gtag('config', 'G-RFWE7V09ES', { 'anonymize_ip': true});
 <li><code>tool</code>: A decorator to easily register functions as tools for the agent.</li>
 <li><code>DuckDuckGoSearchTool</code>: A pre-built tool that allows the agent to perform web searches using DuckDuckGo.</li>
 </ul></li>
-<li><p><code>transformers</code>: We import <code>AutoTokenizer</code> from the <code>transformers</code> library, which will be used to process text data for our models.</p></li>
 <li><p><code>yaml</code>: This library is imported to handle YAML configuration files, allowing us to define agent settings in a structured format.</p></li>
 <li><p><code>yfinance</code>: We import <code>yfinance</code> to fetch stock market data.</p></li>
-<li><p><code>datetime</code> and <code>pytz</code>: These are used for handling date and time information, which will be useful when working with financial data.</p></li>
 </ul>
 <p>These imports set the stage for building a powerful AI agent that can interact with its environment through code execution and web searches.</p>
-<p>You can see which dependencies are used for running this notebook by either simply hovering over <span style="text-decoration: underline dotted; cursor: help; color:rgb(255, 105, 230);" title="markdownify
+<p>You can see which dependencies are used for running this notebook by either simply hovering over <span style="text-decoration: underline dotted; cursor: help; color:rgb(70, 129, 218);" title="markdownify
 smolagents
 requests
 duckduckgo_search
 pandas
-yfinance">requirements.txt</span> or by visiting <a href="https://github.com/Jonathanmoatti/Jonathanmoatti.github.io/tree/main/posts/local_agents">this blog post’s GitHub page</a> and accessing the file.</p>
+yfinance">requirements.txt</span> or by opening it in <a href="requirements.txt" title="$(cat requirements.txt)">another window.</a></p>
 <div id="cell-8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textwrap <span class="im">import</span> fill</span>
@@ -317,9 +315,8 @@ yfinance">requirements.txt</span> or by visiting <a href="https://github.com/Jon
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytz</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> smolagents <span class="im">import</span> CodeAgent, TransformersModel, tool, DuckDuckGoSearchTool</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> smolagents.tools <span class="im">import</span> Tool</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="define-your-prompt-template" class="level3">
@@ -372,38 +369,48 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 </ul>
 <p>This structured approach makes it easier for Agents to <em>call tools correctly, understand their functions, and use them effectively in reasoning and decision-making.</em></p>
 <div id="cell-12" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> smolagents <span class="im">import</span> tool</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># first tool</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_NA_market_status(ticker: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    A tool that checks if the stock market is open for the given ticker and returns the </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    current price if open,or the previous close price if the market is closed.</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">        ticker: The stock ticker symbol (e.g., 'AAPL', 'GOOG').</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">        A message indicating whether the market is open or closed, </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">        and the price of the stock at the respective time.</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the current time in Eastern Time Zone</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    eastern <span class="op">=</span> pytz.timezone(<span class="st">'US/Eastern'</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> datetime.now(eastern)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    current_time <span class="op">=</span> now.time()</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    current_day <span class="op">=</span> now.weekday()  <span class="co"># Monday is 0 and Sunday is 6</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    market_open_time <span class="op">=</span> datetime.strptime(<span class="st">"09:30:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    market_close_time <span class="op">=</span> datetime.strptime(<span class="st">"16:00:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_day <span class="op">&lt;</span> <span class="dv">5</span> <span class="kw">and</span> market_open_time <span class="op">&lt;=</span> current_time <span class="op">&lt;=</span> market_close_time:</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Request intraday data: 1-day period with 1-minute interval</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        current_price <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>, interval<span class="op">=</span><span class="st">"1m"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Market is open. Current price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">: $</span><span class="sc">{</span>current_price<span class="sc">:.2f}</span><span class="ss">"</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        previous_close <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Market is closed. Previous close price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss">: $</span><span class="sc">{</span>previous_close<span class="sc">:.2f}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>eastern <span class="op">=</span> pytz.timezone(<span class="st">'US/Eastern'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>now <span class="op">=</span> datetime.now(eastern)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>current_time <span class="op">=</span> now.strftime(<span class="st">"%A %B </span><span class="sc">%d</span><span class="st"> at %H:%M EST"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(current_time) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Saturday February 22 at 22:25 EST</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_NA_market_status(ticker: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    A tool that checks if the stock market is open for the given ticker and returns the </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    current price if open,or the previous close price if the market is closed.</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">        ticker: The stock ticker symbol (e.g., 'AAPL', 'GOOG').</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A message indicating whether the market is open or closed, </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">        and the price of the stock at the respective time.</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the current time in Eastern Time Zone</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    eastern <span class="op">=</span> pytz.timezone(<span class="st">'US/Eastern'</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> datetime.now(eastern)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    parsed_now <span class="op">=</span> now.strftime(<span class="st">"%A %B </span><span class="sc">%d</span><span class="st"> at %H:%M EST"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    current_time <span class="op">=</span> now.time()</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    current_day <span class="op">=</span> now.weekday()  <span class="co"># Monday is 0 and Sunday is 6</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    market_open_time <span class="op">=</span> datetime.strptime(<span class="st">"09:30:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    market_close_time <span class="op">=</span> datetime.strptime(<span class="st">"16:00:00"</span>, <span class="st">"%H:%M:%S"</span>).time()</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_day <span class="op">&lt;</span> <span class="dv">5</span> <span class="kw">and</span> market_open_time <span class="op">&lt;=</span> current_time <span class="op">&lt;=</span> market_close_time:</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Request intraday data: 1-day period with 1-minute interval</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        current_price <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>, interval<span class="op">=</span><span class="st">"1m"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"""As of </span><span class="sc">{</span>parsed_now<span class="sc">}</span><span class="ss">, the market is open.</span><span class="ch">\n</span><span class="ss">    </span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ss">        The current price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss"> is: $</span><span class="sc">{</span>current_price<span class="sc">:.2f}</span><span class="ss">"""</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        stock <span class="op">=</span> yf.Ticker(ticker)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        previous_close <span class="op">=</span> stock.history(period<span class="op">=</span><span class="st">"1d"</span>)[<span class="st">'Close'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"""As of </span><span class="sc">{</span>parsed_now<span class="sc">}</span><span class="ss">, the market is closed.</span><span class="ch">\n</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="ss">        The previous close price of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss"> was $</span><span class="sc">{</span>previous_close<span class="sc">:.2f}</span><span class="ss">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -417,62 +424,62 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 <li>Is significantly more efficient than recursive implementations, using an iterative approach to avoid excessive function calls.</li>
 <li>Ensures the AI agent always returns correct numerical results rather than relying on approximate or hallucinated values. <br></li>
 </ol>
-<div id="cell-14" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># second tool</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci_tool(n: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    A simple tool that returns the nth Fibonacci number.</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">        n: The index of the Fibonacci sequence to retrieve (int)</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">        int: The nth Fibonacci number.</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-15" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># second tool</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci_tool(n: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    A simple tool that returns the nth Fibonacci number.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">        n: The index of the Fibonacci sequence to retrieve (int)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">        int: The nth Fibonacci number.</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bypassing-the-llms-training-date-cutoff" class="level3">
 <h3 class="anchored" data-anchor-id="bypassing-the-llms-training-date-cutoff"><strong>Bypassing the LLM’s training date cutoff</strong></h3>
 <p>Finally, we create a tool that leverages <code>DuckDuckGoSearch</code> to fetch up-to-date information from the web.</p>
 <p>This tool empowers our agent with the ability to quickly retrieve relevant information on demand. Since models training have cutoff dates, this tool will allow us to bypass this cutoff limitation by researching the web for up to date answers to any query we may have.</p>
-<div id="cell-16" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># third tool</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duckduckgo_search(query: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    A tool that performs a real-time DuckDuckGo search for the given query </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    and returns the top results.</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">        query: The search query string (e.g., "Latest AI research 2025").</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">        A string containing the search results. If the search tool returns </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">        a formatted string, it is returned directly; otherwise, if it </span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">        returns a list of dictionaries with 'title' and 'url' keys,</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">        the results are formatted for readability.</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    search_tool <span class="op">=</span> DuckDuckGoSearchTool()</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> search_tool(query)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(results, <span class="bu">str</span>):</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> results</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    formatted_results <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        [<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">.</span>get(<span class="st">'title'</span>, <span class="st">'No Title'</span>)<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>item<span class="sc">.</span>get(<span class="st">'url'</span>, <span class="st">'No URL'</span>)<span class="sc">}</span><span class="ss">"</span> </span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>         <span class="cf">for</span> item <span class="kw">in</span> results]</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> formatted_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-17" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># third tool</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duckduckgo_search(query: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">    A tool that performs a real-time DuckDuckGo search for the given query </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    and returns the top results.</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">        query: The search query string (e.g., "Latest AI research 2025").</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">        A string containing the search results. If the search tool returns </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">        a formatted string, it is returned directly; otherwise, if it </span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">        returns a list of dictionaries with 'title' and 'url' keys,</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">        the results are formatted for readability.</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    search_tool <span class="op">=</span> DuckDuckGoSearchTool()</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> search_tool(query)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(results, <span class="bu">str</span>):</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> results</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    formatted_results <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        [<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">.</span>get(<span class="st">'title'</span>, <span class="st">'No Title'</span>)<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>item<span class="sc">.</span>get(<span class="st">'url'</span>, <span class="st">'No URL'</span>)<span class="sc">}</span><span class="ss">"</span> </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>         <span class="cf">for</span> item <span class="kw">in</span> results]</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> formatted_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="understanding-the-final-answer-tool-in-ai-agents" class="level3">
@@ -496,34 +503,38 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 </ul></li>
 </ol>
 <p>When designing AI agents, tools like this help bridge the gap between reasoning and action, making interactions smoother and more reliable.</p>
-<div id="cell-18" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># final answer class tool used after reasoning</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FinalAnswerTool(Tool):</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">"final_answer"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    description <span class="op">=</span> <span class="st">"Provides a final answer to the given problem."</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> {<span class="st">'answer'</span>: {<span class="st">'type'</span>: <span class="st">'any'</span>, <span class="st">'description'</span>: <span class="st">'The final answer to the problem'</span>}}</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    output_type <span class="op">=</span> <span class="st">"any"</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, answer: Any) <span class="op">-&gt;</span> Any:</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> answer</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, <span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_initialized <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># instanciate tool</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>final_answer <span class="op">=</span> FinalAnswerTool()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-19" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># final answer class tool used after reasoning</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FinalAnswerTool(Tool):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">"final_answer"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    description <span class="op">=</span> <span class="st">"Provides a final answer to the given problem."</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> {<span class="st">'answer'</span>: {<span class="st">'type'</span>: <span class="st">'any'</span>, <span class="st">'description'</span>: <span class="st">'The final answer to the problem'</span>}}</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    output_type <span class="op">=</span> <span class="st">"any"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, answer: Any) <span class="op">-&gt;</span> Any:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> answer</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, <span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_initialized <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># instanciate tool</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>final_answer <span class="op">=</span> FinalAnswerTool()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="picking-our-llm-and-initializing-it." class="level3">
 <h3 class="anchored" data-anchor-id="picking-our-llm-and-initializing-it.">Picking our LLM and initializing it.</h3>
 <p>To instanciate our agent, we must first create a model instance by setting up a specific <code>TransformersModel</code> and its tokenizer (with CUDA enabled and controlled token limits).</p>
-<div id="cell-20" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pick a model and instanciate it</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model_name= "HuggingFaceTB/SmolLM2-360M-Instruct"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>model_name<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-1.7B-Instruct"</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model_name = "HuggingFaceTB/SmolLM-135M-Instruct"</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> TransformersModel(model_id<span class="op">=</span>model_name, device_map<span class="op">=</span><span class="st">"auto"</span>, max_new_tokens<span class="op">=</span><span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here is a link to the <a href="https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct">model card</a> of the HuggingFace LLM we will be using today 🤗</p>
+<div id="cell-21" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pick a model and instanciate it; smaller models risk giving erroneous answers</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># but you can use those if you don't have enough memory</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model_name = "HuggingFaceTB/SmolLM-135M-Instruct"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># model_name= "HuggingFaceTB/SmolLM2-360M-Instruct"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>model_name<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-1.7B-Instruct"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> TransformersModel(model_id<span class="op">=</span>model_name, device_map<span class="op">=</span><span class="st">"auto"</span>, max_new_tokens<span class="op">=</span><span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="creating-an-ai-agent-with-custom-tools" class="level3">
@@ -537,25 +548,25 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 <li><code>Verbosity</code> (verbosity_level=1) – Controls the level of detail in logs/debugging output.</li>
 <li><code>Prompt Templates</code> (prompt_templates) – Provides structured instructions for the agent’s behavior.</li>
 </ol>
-<div id="cell-22" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finaly, create the agent and pass the model, tools, </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># number of steps it should reflect for, prompt template...ect</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> CodeAgent(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[final_answer,fibonacci_tool, check_NA_market_status, duckduckgo_search], </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    max_steps<span class="op">=</span><span class="dv">6</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    verbosity_level<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    grammar<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    planning_interval<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    prompt_templates<span class="op">=</span>prompt_templates</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finaly, create the agent and pass the model, tools, </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># number of steps it should reflect for, prompt template...ect</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> CodeAgent(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[final_answer,fibonacci_tool, check_NA_market_status, duckduckgo_search], </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    max_steps<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    verbosity_level<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    grammar<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    planning_interval<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    prompt_templates<span class="op">=</span>prompt_templates</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, we query our <code>agent</code> by passing in our queries to the <code>.run()</code> method.</p>
-<div id="cell-24" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you give me the 118th number in the Fibonacci sequence?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-25" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you give me the 118th number in the Fibonacci sequence?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702">╭──────────────────────────────────────────────────── </span><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">New run</span><span style="color: #d4b702; text-decoration-color: #d4b702"> ────────────────────────────────────────────────────╮</span>
 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>                                                                                                                 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>
@@ -580,15 +591,15 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 </pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">[Step 0: Duration 4.89 seconds| Input tokens: 2,512 | Output tokens: 63]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">[Step 0: Duration 4.87 seconds| Input tokens: 2,514 | Output tokens: 63]</span>
 </pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CodeAgent: 2046711111473984623691759</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you give me the current market price of the stock NVDA Corp.?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-26" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you give me the current market price of the stock NVDA Corp.?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702">╭──────────────────────────────────────────────────── </span><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">New run</span><span style="color: #d4b702; text-decoration-color: #d4b702"> ────────────────────────────────────────────────────╮</span>
 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>                                                                                                                 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>
@@ -610,19 +621,23 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 </pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">Out - Final answer: Market is closed. Previous close price of NVDA: $134.43</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">Out - Final answer: As of Saturday February 22 at 22:25 EST, the market is closed.</span>
+
+<span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">        The previous close price of NVDA was $134.43</span>
 </pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">[Step 0: Duration 5.46 seconds| Input tokens: 2,510 | Output tokens: 78]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">[Step 0: Duration 5.46 seconds| Input tokens: 2,512 | Output tokens: 78]</span>
 </pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CodeAgent: Market is closed. Previous close price of NVDA: $134.43</code></pre>
+<pre><code>CodeAgent: As of Saturday February 22 at 22:25 EST, the market is closed.
+
+        The previous close price of NVDA was $134.43</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you search the web for the latest AI research in 2025"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CodeAgent:"</span>, agent.run(<span class="st">"Could you search the web for the latest AI research in 2025"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d4b702; text-decoration-color: #d4b702">╭──────────────────────────────────────────────────── </span><span style="color: #d4b702; text-decoration-color: #d4b702; font-weight: bold">New run</span><span style="color: #d4b702; text-decoration-color: #d4b702"> ────────────────────────────────────────────────────╮</span>
 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>                                                                                                                 <span style="color: #d4b702; text-decoration-color: #d4b702">│</span>
@@ -638,8 +653,8 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"> ─ <span style="font-weight: bold">Executing parsed code:</span> ──────────────────────────────────────────────────────────────────────────────────────── 
   <span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">query </span><span style="color: #ff4689; text-decoration-color: #ff4689; background-color: #272822">=</span><span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822"> </span><span style="color: #e6db74; text-decoration-color: #e6db74; background-color: #272822">"Latest AI research 2025"</span><span style="background-color: #272822">                                                                              </span>  
-  <span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">answer </span><span style="color: #ff4689; text-decoration-color: #ff4689; background-color: #272822">=</span><span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822"> duckduckgo_search(query</span><span style="color: #ff4689; text-decoration-color: #ff4689; background-color: #272822">=</span><span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">query)</span><span style="background-color: #272822">                                                                        </span>  
-  <span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">final_answer(answer)</span><span style="background-color: #272822">                                                                                           </span>  
+  <span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">result </span><span style="color: #ff4689; text-decoration-color: #ff4689; background-color: #272822">=</span><span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822"> duckduckgo_search(query</span><span style="color: #ff4689; text-decoration-color: #ff4689; background-color: #272822">=</span><span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">query)</span><span style="background-color: #272822">                                                                        </span>  
+  <span style="color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822">final_answer(result)</span><span style="background-color: #272822">                                                                                           </span>  
  ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 </pre>
 </div>
@@ -713,7 +728,7 @@ The first tool we will build today uses the <code>yfinance</code> library to che
 </pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">[Step 0: Duration 6.23 seconds| Input tokens: 2,511 | Output tokens: 82]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">[Step 0: Duration 6.65 seconds| Input tokens: 2,513 | Output tokens: 82]</span>
 </pre>
 </div>
 <div class="cell-output cell-output-stdout">
