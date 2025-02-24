@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "The Gradient Dissident"
+  google-analytics: "G-RFWE7V09ES"
+  navbar:
+    right:
+      - text: "Blog"
+        href: blog.html
+      - icon: github
+        href: https://github.com/Jonathanmoatti
+      - icon: linkedin
+        href: https://www.linkedin.com/in/jonathan-moatti/
+  
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    highlight-style: github-dark
+    css: styles.css
+
+
