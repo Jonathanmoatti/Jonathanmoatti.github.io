@@ -282,7 +282,7 @@ gtag('config', 'G-RFWE7V09ES', { 'anonymize_ip': true});
 </section>
 <section id="building-open-source-agents-using-huggingfaces-smolagents" class="level2">
 <h2 class="anchored" data-anchor-id="building-open-source-agents-using-huggingfaces-smolagents">Building Open Source Agents using HuggingFace’s SmolAgents</h2>
-<p>To monitor GPU utilization in real-time, especially when running resource-intensive machine learning tasks, you can leverage the <code>nvidia-smi</code> command. On Ubuntu, simply uncomment and execute the following command in your terminal (provided that you have an Nvidia GPU):</p>
+<p>To monitor GPU utilization in real-time, especially when running resource-intensive machine learning tasks, you can leverage the <code>nvidia-smi</code> command. On Ubuntu, simply execute the following command in your terminal (provided that you have an Nvidia GPU):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">watch</span> <span class="at">-n</span> 1 nvidia-smi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This command offers a live, updating snapshot of your GPU’s performance, enabling you to monitor key metrics such as memory utilization and temperature. The <code>watch -n 1</code> component ensures that this information is refreshed every second. This is particularly useful for debugging, optimizing your machine learning workflows, and identifying specific commands or models that lead to critical “Out Of Memory” errors.</p>
 <section id="imports-setup" class="level3">
@@ -761,7 +761,13 @@ How will AI affect education by 2025?AI will provide personalized learning exper
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>In this tutorial, we’ve demonstrated that it’s possible to build powerful AI assistants that run entirely on your local machine while still maintaining access to current information through web searches. The combination of local processing and internet connectivity offers a balanced solution between privacy, cost-effectiveness, and up-to-date information access.</p>
 <p>While this implementation uses specific tools and models, the concepts can be adapted to work with different LLMs or search engines based on your needs. The modular nature of the code allows for easy extensions and modifications.</p>
-<p>Feel free to experiment with: - Different LLM models - Additional custom tools - Alternative search engines - Enhanced prompting strategies</p>
+<p>Feel free to experiment with:</p>
+<ul>
+<li>Different LLM models</li>
+<li>Additional custom tools</li>
+<li>Alternative search engines</li>
+<li>Enhanced prompting strategies</li>
+</ul>
 <p>The code for this project is available on <a href="https://github.com/Jonathanmoatti/Jonathanmoatti.github.io/tree/main/posts/local_agents">GitHub</a>.</p>
 <p>If you have any questions or want to get in touch, don’t hesitate!</p>
 <ul>
